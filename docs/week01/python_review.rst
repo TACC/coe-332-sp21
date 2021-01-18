@@ -1,4 +1,0 @@
-Python Review
-=============
-
-Content

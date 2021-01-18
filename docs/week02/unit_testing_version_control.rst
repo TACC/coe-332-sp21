@@ -1,4 +1,4 @@
 Week 2: Unit Testing and Version Control
 ========================================
 
-Content
+Content will be updated Jan 26, 2021.
