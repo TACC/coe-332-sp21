@@ -5,5 +5,5 @@
 
 This repo contains the lecture materials for COE 332.
 
-https://coe-332-sp21.readthedocs.io/en/latest/
+https://coe-332-sp21.readthedocs.io/
 

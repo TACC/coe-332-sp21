@@ -40,5 +40,5 @@ Additional Resources
 ====================
 
 * Slack: https://tacc-learn.slack.com/
-* Class Repo: https://bitbucket.org/tacc-cic/coe332
+* Class Repo: https://coe-332-sp21.readthedocs.io/
 
