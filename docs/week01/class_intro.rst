@@ -81,7 +81,7 @@ About the Syllabus
 
 * 30% Homework - Approximately 8 assignments, assigned on Tuesdays and due the
   following Tuesday. The lowest score will be dropped.
-* 30% Midterm - We will have a written midterm ​in class
+* 30% Midterm - We will have a written midterm.
 * 40% Project - Students will form groups and will submit a final class project
   consisting of a distributed, web-accessible, cloud system to analyze a time
   series dataset. The project will draw from and build upon work done throughout
