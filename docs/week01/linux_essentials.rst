@@ -660,27 +660,7 @@ Review of Topics Covered
 Additional Resources
 --------------------
 
-Practice Linux commands safely in a web-based emulator:
-
-https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192
-
-This is a good summary of the important commands you need to know:
-
-https://linuxjourney.com/lesson/the-shell
-
-Learn some basic commands in a game format:
-
-http://web.mit.edu/mprat/Public/web/Terminus/Web/main.html
-
-
-Practice VIM in a web browser:
-
-http://openvim.com/
-
-Practice VIM in an adventure game:
-
-http://vim-adventures.com/
-
-Practice VIM on the command line:
-
-Type ``vimtutor`` on the command line
+* `Practice Linux commands safely in a web-based emulator <https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192>`_
+* `This is a good summary of the important commands you need to know <https://linuxjourney.com/lesson/the-shell>`_
+* `Practice VIM in a web browser <http://openvim.com/>`_
+* Practice VIM on the command line by typing ``vimtutor``

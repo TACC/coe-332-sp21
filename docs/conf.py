@@ -18,7 +18,7 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'coe-332-sp21'
+project = 'COE 332: Software Engineering & Design'
 copyright = '2021, Texas Advanced Computing Center'
 author = 'Texas Advanced Computing Center'
 
