@@ -237,8 +237,8 @@ next class period**:
 .. code-block:: console
    :emphasize-lines: 1,2,23
 
-   [local]$ ssh username@isp.tacc.utexas.edu
-   username@isp.tacc.utexas.edu's password:
+   [local]$ ssh username@isp02.tacc.utexas.edu
+   username@isp02.tacc.utexas.edu's password:
    Last login: Sun Jan 17 23:48:54 2021 from cpe-24-27-53-74.austin.res.rr.com
    ------------------------------------------------------------------------------
    Welcome to the Texas Advanced Computing Center
