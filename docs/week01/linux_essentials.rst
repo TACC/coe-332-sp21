@@ -406,8 +406,9 @@ ssh in a Terminal:
 
 .. code-block:: bash
 
-   $ ssh wallen@isp02.tacc.utexas.edu
+   [local]$ ssh wallen@isp02.tacc.utexas.edu
    (enter password)
+   [isp02]$ 
 
 Windows users would typically use the program **PuTTY** (or another SSH client)
 to perform this operation. Logging out of a remote system is done using the
@@ -415,7 +416,7 @@ to perform this operation. Logging out of a remote system is done using the
 
 .. code-block:: bash
 
-  [stampede2]$ logout
+  [isp02]$ logout
   [local]$
 
 
