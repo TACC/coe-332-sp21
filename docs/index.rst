@@ -41,4 +41,4 @@ Additional Resources
 
 * Slack: https://tacc-learn.slack.com/
 * Class Repo: https://coe-332-sp21.readthedocs.io/
-
+* Canvas: https://utexas.instructure.com/courses/1299275

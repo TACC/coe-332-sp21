@@ -43,6 +43,11 @@ system or ssh client below.
    (enter password)
 
 
+If you can't access the class server yet, a local or web-based Linux environment
+will work for this guide. However, you will need to access the class server for
+future lectures.
+
+Try this `Linux environment in a browser <https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192>`_.
 
 
 
@@ -537,8 +542,6 @@ Review of Topics Covered
 +------------------------------------+-------------------------------------------------+
 | ``rm -r dir_name/``                |  remove a directory and its contents            |
 +------------------------------------+-------------------------------------------------+
-| ``tree``                           |  list files and directories hierarchically      |
-+------------------------------------+-------------------------------------------------+
 | ``.`` or ``./``                    |  refers to the present location                 |
 +------------------------------------+-------------------------------------------------+
 | ``..`` or ``../``                  |  refers to the parent directory                 |
@@ -614,10 +617,6 @@ Review of Topics Covered
 | ``ssh username@hostname``          |  remote login                                   |
 +------------------------------------+-------------------------------------------------+
 | ``logout``                         |  logout                                         |
-+------------------------------------+-------------------------------------------------+
-| ``cd $WORK``, ``cdw``              |  navigate to ``$WORK`` file system              |
-+------------------------------------+-------------------------------------------------+
-| ``cd $SCRATCH``, ``cds``           |  navigate to ``$SCRATCH`` file system           |
 +------------------------------------+-------------------------------------------------+
 | ``scp local remote``               |  copy a file from local to remote               |
 +------------------------------------+-------------------------------------------------+
