@@ -374,7 +374,7 @@ lists:
    ...     print(shape)
    >>>
    >>> for shape in my_shape_list:
-   ...     if (shape == 'circle')
+   ...     if (shape == 'circle'):
    ...         pass                    # do nothing
    ...     else:
    ...         print(shape)
