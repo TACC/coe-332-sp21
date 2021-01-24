@@ -118,8 +118,8 @@ EXERCISE
 
 Try out some of these calls to the ``type()`` function on the new ``states``
 object that you loaded. Also ``print()`` each of these as necessary to be sure
-you know what each is. Be able to explain the output of each call to ``type``
-and ``print``.
+you know what each is. Be able to explain the output of each call to ``type()``
+and ``print()``.
 
 .. code-block:: python3
    :linenos:
@@ -141,6 +141,10 @@ and ``print``.
    print(states["states"][0]["name"])
    print(states["states"][0]["name"][0])
 
+.. tip::
+
+   Consider doing this in an the Python interpreter's interactive mode instead
+   of in a script.
 
 Working with JSON
 -----------------
@@ -210,8 +214,8 @@ for a function that will help.
 Write JSON to File
 ------------------
 
-Finally, in a new script, we will create an object that we can write to a json
-file.
+Finally, in a new script, we will create an object that we can write to a new
+JSON file.
 
 .. code-block:: python3
    :linenos:
@@ -228,7 +232,7 @@ file.
    with open('class.json', 'w') as out:
        json.dump(data, out, indent=2)
 
-Notice that most of the code in the script above was just assembling a normal
+Notice that most of the code in the script above was simply assembling a normal
 Python dictionary. The ``json.dump()`` method only requires two arguments - the
 object that should be written to file, and the filehandle. The ``indent=2``
 argument is optional, but it makes the output file looks a little nicer and
