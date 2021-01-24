@@ -426,7 +426,8 @@ Enter the following text into the script:
 
    hello_world()
 
-After saving and quiting the file, execute the script:
+After saving and quiting the file, execute the script (Python code is not
+compiled - just run the raw script with the ``python3`` executable):
 
 .. code-block:: bash
 
