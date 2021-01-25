@@ -242,6 +242,34 @@ to demonstrate:
    >>> print(my_big_list)
    ['circle', 'triangle', 'square', 'diamond', 5, 6, 2, 4]
 
+Another way to access the contents of lists is by slicing. Slicing supports a
+start index, stop index, and step taking the form: ``mylist[start:stop:step]``.
+Only the first colon is required. If you omit the start, stop, or :step, it is
+assumed you mean the beginning, end, and a step of 1, respectively. Here are
+some examples of slicing:
+
+.. code-block:: python3
+
+   >>> mylist = ['thing1', 'thing2', 'thing3', 'thing4', 'thing5']
+   >>> print(mylist[0:2])     # returns the first two things
+   ['thing1', 'thing2']
+   >>> print(mylist[:2])      # if you omit the start index, it assumes the beginning
+   ['thing1', 'thing2']
+   >>> print(mylist[-2:])     # returns the last two things (omit the stop index and it assumes the end)
+   ['thing4', 'thing5']
+   >>> print(mylist[:])       # returns the entire list
+   ['thing1', 'thing2', 'thing3', 'thing4', 'thing5']
+   >>> print(mylist[::2])     # return every other thing (step = 2)
+   ['thing1', 'thing3', 'thing5']
+
+.. note::
+
+   If you slice from a list, it returns an object of type list. If you access a
+   list element by its index, it returns an object of whatever type that element
+   is. The choice of whether to slice from a list, or iterate over a list by
+   index, will depend on what you want to do with the data.
+
+
 **Dictionaries** are another data structure in Python that contain key:value
 pairs. They are always unordered, they cannot contain duplicate keys, and they
 can be modified. Create a new dictionary using curly brackets:
