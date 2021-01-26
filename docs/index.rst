@@ -34,10 +34,15 @@ web-accessible interface to their system.
    week14/special_topics_1
    week15/special_topics_2
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Homeworks:
+
+   homework/homework01.rst
 
 
 Additional Resources
-====================
+--------------------
 
 * Slack: https://tacc-learn.slack.com/
 * Class Repo: https://coe-332-sp21.readthedocs.io/
