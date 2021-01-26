@@ -24,7 +24,7 @@ built in to the Python Standard Library and can be imported directly. Find the
 `documentation here <https://docs.python.org/3/library/unittest.html>`_. The
 best way to see how it works is to see it applied to a real example.
 
-`Pull a copy  <https://raw.githubusercontent.com/TACC/coe-332-sp21/main/docs/week02/sample-json/json_ex.json>`_
+`Pull a copy  <https://raw.githubusercontent.com/TACC/coe-332-sp21/main/docs/week02/sample-json/json_ex.py>`_
 of the Python script from the previous section if you don't have one already.
 
 We need to make a small organizational change to this code in order to make it
