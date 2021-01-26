@@ -87,7 +87,7 @@ Python script using your method of choice:
 
 .. code-block:: bash
 
-    [isp02]$ vim working_with_json.py
+    [isp02]$ vim json_ex.py
 
 
 .. warning::
@@ -130,16 +130,16 @@ and ``print()``.
        states = json.load(f)
 
    type(states)
-   type(states["states"])
-   type(states["states"][0])
-   type(states["states"][0]["name"])
-   type(states["states"][0]["name"][0])
+   type(states['states'])
+   type(states['states'][0])
+   type(states['states'][0]['name'])
+   type(states['states'][0]['name'][0])
 
    print(states)
-   print(states["states"])
-   print(states["states"][0])
-   print(states["states"][0]["name"])
-   print(states["states"][0]["name"][0])
+   print(states['states'])
+   print(states['states'][0])
+   print(states['states'][0]['name'])
+   print(states['states'][0]['name'][0])
 
 .. tip::
 
@@ -151,64 +151,70 @@ Working with JSON
 
 As we have seen, the JSON object we loaded contains state names and
 abbreviations. In the US, official state abbreviations are unique, two-letter
-identifiers. Let's write a couple functions to help us validate whether our
-state abbreviations follow the rules or not.
+identifiers. Let's write a few functions to help us validate whether our state
+abbreviations follow the rules or not.
 
 First, write a function to check whether there are exactly two characters in
-each of the abbreviations. Call that function, and have it print to standard out
-any deviations from the expected.
+each of the abbreviations. Call that function, and have it return a message
+about whether the abbreviation passes or fails the test.
 
 .. code-block:: python3
    :linenos:
-   :emphasize-lines: 3-5,10-11
+   :emphasize-lines: 3-7,12-13
 
    import json
 
-   def check_character_count(mystr):
-       if (len(mystr) != 2):
-           print( f'{mystr} is not two characters!' )
+   def check_char_count(mystr):
+       if ( len(mystr) == 2 ):
+           return( f'{mystr} count passes' )
+       else:
+           return( f'{mystr} count FAILS' )
 
    with open('states.json', 'r') as f:
        states = json.load(f)
 
    for i in range(50):
-       check_character_count(states['states'][i]['abbreviation'])
+       print(check_char_count( states['states'][i]['abbreviation']))
 
 
 
-Next, write a function to check whether both characters are actually letters,
-and not something else like a number or a special character. Again, have it
-print anything errant to standard out.
+Next, write a function to check whether both characters are actually uppercase
+letters, and not something else like a number or a special character or a
+lowercase letter. Again, have it return a pass or fail message as appropriate.
 
 .. code-block:: python3
    :linenos:
-   :emphasize-lines: 7-9,16
+   :emphasize-lines: 9-13,20
 
    import json
 
-   def check_character_count(mystr):
-       if (len(mystr) != 2):
-           print( f'{mystr} is not two characters!' )
+   def check_char_count(mystr):
+       if (len(mystr) == 2):
+           return( f'{mystr} count passes' )
+       else:
+           return( f'{mystr} count FAILS' )
 
-   def check_character_type(mystr):
-       if not mystr.isalpha():
-           print( f'{mystr} contains characters other than letters!' )
+   def check_char_type(mystr):
+       if (mystr.isalpha() and mystr.isupper()):
+           return( f'{mystr} type passes' )
+       else:
+           return( f'{mystr} type FAILS' )
 
    with open('states.json', 'r') as f:
        states = json.load(f)
 
    for i in range(50):
-       check_character_count(states['states'][i]['abbreviation'])
-       check_character_type(states['states'][i]['abbreviation'])
+       print(check_char_count( states['states'][i]['abbreviation']))
+       print(check_char_type( states['states'][i]['abbreviation']))
+
 
 
 EXERCISE
 ~~~~~~~~
 
-Write a third function to check that all characters are uppercase. Print any
-errant abbreviations to standard out. Check the Python docs on
-`string methods <https://docs.python.org/3.6/library/stdtypes.html#string-methods>`_
-for a function that will help.
+Write a third function to check that the first character of each abbreviation
+matches the first character of the corresponding state. Return pass or fail
+messages as appropriate.
 
 
 Write JSON to File
