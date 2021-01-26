@@ -75,7 +75,7 @@ and cut and paste the contents into a file called ``states.json``:
    [isp02]$ wget https://raw.githubusercontent.com/TACC/coe-332-sp21/main/docs/week02/sample-json/states.json
 
 Plug this file (or some of the above samples) into an online JSON validator
-(e.g. `JOSNLint <https://jsonlint.com/>`_). Try making manual changes to some of
+(e.g. `JSONLint <https://jsonlint.com/>`_). Try making manual changes to some of
 the entries to see what breaks the JSON format.
 
 Load JSON into a Python Script
