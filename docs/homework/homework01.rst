@@ -19,7 +19,7 @@ Each of the 20 individual animals should be accessible from a list of
 dictionaries. Use the ``json`` library to dump your data structure into an
 ``animals.json`` file. For example, your assembled data structure may look like:
 
-.. code-block:: json
+.. code-block:: console
 
    {
      "animals": [
