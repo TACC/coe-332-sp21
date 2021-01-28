@@ -1,7 +1,7 @@
 Homework 01
 ===========
 
-**Due Date: Tuesday, Feb 2, by 11:00am CST**
+**Due Date: Thursday, Feb 4, by 11:00am CST**
 
 The Island of Dr. Moreau
 ------------------------
