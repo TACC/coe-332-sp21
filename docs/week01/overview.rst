@@ -1,5 +1,5 @@
 Week 1: Onboarding, Linux, Python Review
-=========================================
+========================================
 
 We will use the first week of class to set expectations and describe
 requirements for the upcoming semester. We will begin to set up some necessary

@@ -18,14 +18,14 @@ web-accessible interface to their system.
    :maxdepth: 1
    :caption: Course Schedule:
 
-   week01/onboarding_linux_python
-   week02/unit_testing_version_control
-   week03/containers_docker
-   week04/http_rest_flask
-   week05/flask_integration_testing
-   week06/databases
-   week07/persistence
-   week08/midterm_review
+   week01/overview
+   week02/overview
+   week03/overview
+   week04/overview
+   week05/overview
+   week06/overview
+   week07/overview
+   week08/overview
    week09/container_orchestration_kubernetes_1
    week10/container_orchestration_kubernetes_2
    week11/continuous_integration

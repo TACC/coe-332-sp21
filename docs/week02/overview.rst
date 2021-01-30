@@ -1,10 +1,10 @@
-Week 2: JSON, Unit Testing, Version Control
-===========================================
+Week 2: JSON, Unit Testing
+==========================
 
 In this second week of class, we will work hands-on with some essential concepts
 that we will use throughout the course. This includes working with the Python
-JSON library, writing and executing unit tests with the Python unittest library,
-and version control with Git.
+JSON library and writing and executing unit tests with the Python unittest
+library.
 
 Please make sure you meet the following
 prerequisites for this week: (1) you can `log in to the class server
@@ -19,4 +19,3 @@ of the basic `elements of Python <../week01/python_refresher.html>`_.
 
    json
    unittest
-   version_control
