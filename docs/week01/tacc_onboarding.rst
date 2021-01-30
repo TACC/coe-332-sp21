@@ -51,16 +51,16 @@ Research Campus.
 
 **TACC at a Glance**
 
-.. image:: images/tacc_at_a_glance_1.png
-    :width: 400px
+.. figure:: images/tacc_at_a_glance_1.png
+    :width: 350px
     :align: center
 
-.. image:: images/tacc_at_a_glance_2.png
-    :width: 400px
+.. figure:: images/tacc_at_a_glance_2.png
+    :width: 350px
     :align: center
 
-.. image:: images/tacc_at_a_glance_3.png
-    :width: 400px
+.. figure:: images/tacc_at_a_glance_3.png
+    :width: 350px
     :align: center
 
 

@@ -90,14 +90,14 @@ About the Syllabus
 
 **Approximate Schedule and Key Dates (subject to change):**
 
-* Week 1: Linux and Python Review
-* Week 2: Unit Testing and Version Control
-* Week 3: Intro to Containers and Docker
-* Week 4: HTTP, REST and Flask
-* Week 5: Flask Continued, and Integration Testing
-* Week 6: Databases
-* Week 7: Persistence in REST
-* Week 8: Review / Midterm
+* Week 1: Intro, Linux, Python Review
+* Week 2: JSON, Unit Testing
+* Week 3: Version Control, Intro to Containers
+* Week 4: Advanced Containers, YAML, Docker Compose
+* Week 5: HTTP, REST, Intro to Flask
+* Week 6: Advanced Flask, Integration Testing
+* Week 7: Databases, Persistence in REST
+* Week 8: Review, Midterm
 * Spring Break
 * Week 9: Virtualization: Container Orchestration and Kubernetes
 * Week 10: Virtualization: Container Orchestration and Kubernetes Cont
