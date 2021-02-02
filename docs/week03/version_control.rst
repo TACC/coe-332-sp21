@@ -181,6 +181,7 @@ Git to tell us the status of our project:
 
 .. code-block:: bash
 
+   [isp02]$ git status
    # On branch master
    #
    # Initial commit
