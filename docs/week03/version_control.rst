@@ -558,8 +558,7 @@ only thing missing is to copy changes from one repository to another.
 Systems like Git allow us to move work between any two repositories.  In
 practice, though, it's easiest to use one copy as a central hub, and to keep it
 on the web rather than on someone's laptop.  Most programmers use hosting
-services like GitHub, Bitbucket, or GitLab <https://gitlab.com/> to hold those
-main copies.
+services like GitHub, Bitbucket, or GitLab to hold those main copies.
 
 Let's start by sharing the changes we've made to our current project with the
 world. Log in to GitHub, then click on the icon in the top right corner to
