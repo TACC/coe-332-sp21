@@ -427,7 +427,7 @@ to use a software application inside an image. Docker allows you to spin up an
    battlestar  cfscores  gomoku     monop    pom        random  snscore  worm
    [isp02]$ docker run --rm -it wallen/bsd:1.0 hangman
 
-The first five commands above omitted the ``-it`` flags because they did not
+The first four commands above omitted the ``-it`` flags because they did not
 require an interactive terminal to run. On each of these commands, Docker finds
 the image the command refers to, spins up a new container based on that image,
 executes the given command inside, prints the result, and exits and removes the
