@@ -391,7 +391,7 @@ To build the image, use:
 
 .. code-block:: console
 
-   [isp02]$ docker build -t username/json-parser:0.1 .
+   [isp02]$ docker build -t username/json-parser:1.0 .
 
 .. note::
 
