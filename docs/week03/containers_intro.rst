@@ -338,7 +338,7 @@ Now start the interactive shell:
 
 .. code-block:: console
 
-   [local]$ docker run --rm -it wallen/bsd:1.0 /bin/bash
+   [isp02]$ docker run --rm -it wallen/bsd:1.0 /bin/bash
    root@fc5b620c5a88:/#
 
 Here is an explanation of the command options:
@@ -477,3 +477,5 @@ Additional Resources
 * `Docker Docs <https://docs.docker.com/>`_
 * `Best practices for writing Dockerfiles <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/>`_
 * `Docker Hub <https://hub.docker.com/>`_
+* `Docker for Beginners <https://training.play-with-docker.com/beginner-linux/>`_
+* `Play with Docker <https://labs.play-with-docker.com/>`_
