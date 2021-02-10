@@ -9,7 +9,7 @@ The Containers and Repositories of Dr. Moreau
 This homework builds upon homework 01. You should have already written two
 Python scripts: one for generating a JSON file of assembled animals
 (``generate_animals.py``), and another for reading in and printing one animal at
-(``read_animals.py``) random.
+random (``read_animals.py``).
 
 You are almost ready to release this code into the wild for others to use. Your
 aims in this homework are (1) write one new feature into the ``read_animals.py``
@@ -22,10 +22,9 @@ More details on each of the requirements:
 (1) New Feature
 ~~~~~~~~~~~~~~~
 
-The ``read_animals.py`` script has a lot of room for improvement. Write some new
-functionality into the script, and write at least one unit test using the
-``unittest`` library. Some examples of new features that could be added to the
-script include:
+The ``read_animals.py`` script has a lot of room for improvement. The first
+objective is to write some new functionality into the script. Some examples of
+new features that could be added include:
 
 * Pick two random animals and 'breed' them by mixing their elements to create a
   new animal, which is printed to screen along with its 'parents'
