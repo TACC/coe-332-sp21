@@ -378,10 +378,10 @@ generally takes the form:
 
 .. code-block:: console
 
-   [isp02]$ docker build -t username/code:version .
+   [isp02]$ docker build -t <dockerhubusername>/<code>:<version> .
 
 The ``-t`` flag is used to name or 'tag' the image with a descriptive name and
-version. Optionally, you can preface the tag with your Docker Hub username.
+version. Optionally, you can preface the tag with your **Docker Hub username**.
 Adding that namespace allows you to push your image to a public registry and
 share it with others. The trailing dot '``.``' in the line above simply
 indicates the location of the Dockerfile (a single '``.``' means 'the current
