@@ -1,7 +1,7 @@
 Homework 02
 ===========
 
-**Due Date: Tuesday, Feb 16, by 11:00am CST**
+**Due Date: Thursday, Feb 18, by 11:00am CST**
 
 The Containers and Repositories of Dr. Moreau
 ---------------------------------------------
