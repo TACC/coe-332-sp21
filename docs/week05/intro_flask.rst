@@ -41,13 +41,8 @@ installed standard tools like ``pip``. You will want to use your virtual
 environment to do the Installation:
 
 1. SSH to the VM.
-2. Create a directory for your virtual environment
-   (``mkdir coe332-venv`` for example)
-3. Create your virtual environment (``python3 -m venv ~/coe332-venv``)
-4. Activate your virtual environment
-   (``source ~/coe332-venv/bin/activate``)
-5. Execute ``pip install flask``
-6. Look at the command line interface (CLI) (``flask --help``)
+2. Execute ``pip3 install --user flask``
+3. Look at the command line interface (CLI) (``flask --help``)
 
 A Hello World Flask App
 -----------------------
@@ -95,9 +90,9 @@ to use your own assigned port.
 
 ::
 
-    (coe332-venv) [akahn@isp02 ~]$ export FLASK_APP=app.py
-    (coe332-venv) [akahn@isp02 ~]$ export FLASK_ENV=development
-    (coe332-venv) [akahn@isp02 ~]$ flask run -h localhost -p 5000
+    [charlie@isp02 ~]$ export FLASK_APP=app.py
+    [charlie@isp02 ~]$ export FLASK_ENV=development
+    [charlie@isp02 ~]$ flask run -h localhost -p 5000
      * Serving Flask app "app.py" (lazy loading)
      * Environment: development
      * Debug mode: on
@@ -283,7 +278,7 @@ In the following example, we create a route with a variable:
     def hello_name(name):
         return "Hello {}\n".format(name)
 
-HW 2 parts A & B
+HW parts A & B
 ----------------
 
 Using your creature creator dataset, use your get\_data() function that

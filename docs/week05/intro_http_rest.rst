@@ -1,4 +1,4 @@
-Introduction to Application Programming Interfaces (APIs)
+◊Introduction to Application Programming Interfaces (APIs)
 =========================================================
 
 In general an Application Programming Interface (API) establishes the
@@ -42,7 +42,7 @@ advantage of in this class:
 HTTP - the Protocol of the Internet
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
--  HTTP (Hypyer Text Transfer Protocol) is one way for two computers on
+-  HTTP (Hyper Text Transfer Protocol) is one way for two computers on
    the internet communicate with each other.
 -  It was designed to enable the exchange of data (specifically,
    "hypertext"); In particular, our web browsers use HTTP when
