@@ -1,4 +1,4 @@
-◊Introduction to Application Programming Interfaces (APIs)
+Introduction to Application Programming Interfaces (APIs)
 =========================================================
 
 In general an Application Programming Interface (API) establishes the
@@ -152,7 +152,13 @@ Using the Python requests library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We'll use the python requests library to interact with the github API
-programmatically. Open up a Jupyter notebook and follow along.
+programmatically.
+
+we need to pip3 install the request library
+
+::
+
+    pip3 install --user request
 
 In order to do anything, we need to:
 
