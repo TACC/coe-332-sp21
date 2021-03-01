@@ -22,9 +22,9 @@ web-accessible interface to their system.
    week02/overview
    week03/overview
    week04/overview
-   week05/overview
    week06/overview
    week07/overview
+   week08/overview
    week09/container_orchestration_kubernetes_1
    week10/container_orchestration_kubernetes_2
    week11/asynchronous_programming

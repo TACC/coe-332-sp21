@@ -1,14 +1,13 @@
-Week 6: Advanced Flask, Containerizing Flask
-============================================
+Week 6: HTTP, REST, Intro to Flask
+==================================
 
-In this sixth week of class, we will dive deeper into the Flask framework to 
-see how it can employ multiple URLs / endpoints, receive and decode JSON data,
-and handle query parameters. We will also containerize a Flask app using Docker.
+In this fifth week of class, we will be introduced to Application Programming
+Interfaces (APIs). This will form the foundation of our ultimate goal to create
+large, complex, python-based applications that are accessible through the web.
 
 
 .. toctree::
    :maxdepth: 1
 
-   flask_continued
-   containerizing_flask
-
+   intro_http_rest
+   intro_flask
