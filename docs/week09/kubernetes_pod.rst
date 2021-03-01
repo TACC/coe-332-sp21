@@ -98,4 +98,63 @@ and a shared network address.
   By far, the majority pods you will meet in the wild, including the ones used in this course, will only include one
   container. A pod with multiple containers can be thought of as an "advanced" use case.
 
-To begin, we will define a pod with one container
+To begin, we will define a pod with one container. As we will do with all the resources we want to create in k8s, we
+will describe our pod in a yaml file.
+
+Create a file called ``pod-basic.yml``, open it up in an editor and paste the following code in:
+
+.. code-block:: yaml
+
+    ---
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: hello
+    spec:
+      containers:
+        - name: hello
+          image: busybox
+          command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+
+Let's break this down. The top four stanzas are common to all k8s resource descriptions:
+
+  * ``apiVersion`` -- describes what version of the k8s API we are working in. We are using ``v1``.
+  * ``kind`` -- tells k8s what kind of resource we are describing, in this case a ``Pod``.
+  * ``metadata`` -- in general, this is additional information about the resource we are describing that doesn't pertain
+    to its operation. Here, we are giving our pod a ``name``, ``hello``.
+  * ``spec`` -- This is where the actual description of the resource begins. The contents of this stanza vary depending
+    on the ``kind`` of resource you are creating. We go into more details on this in the next section.
+
+
+The Pod Spec
+~~~~~~~~~~~~
+
+In k8s, you describe resources you want to create or update using a ``spec``. The required and optional parameters
+available depend on the ``kind`` of resource you are describing.
+
+The pod spec we defined looked like this:
+
+.. code-block:: yaml
+
+    spec:
+      containers:
+        - name: hello
+          image: busybox
+          command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+
+There is just one stanza, the ``containers`` stanza, which is a list of containers (recall that pods can contain
+multiple containers). Here we are definging just one container. We provide:
+
+  * ``name`` -- this is the name of the container, similiar to the name attribute in Docker.
+  *
+
+In practice, we won't be creating many ``Pod`` resources directly -- we'll be creating other resources, such as
+``deployments`` that are made up of ``Pod`` resources -- but it is important to understand pods and to be able to work
+with pods using ``kubectl`` for debugging and other management tasks.
+
+
+Additional Resources
+~~~~~~~~~~~~~~~~~~~~
+
+ * `k8s Pod Reference <https://kubernetes.io/docs/concepts/workloads/pods/>`_
+
