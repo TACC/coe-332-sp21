@@ -145,16 +145,169 @@ The pod spec we defined looked like this:
 There is just one stanza, the ``containers`` stanza, which is a list of containers (recall that pods can contain
 multiple containers). Here we are definging just one container. We provide:
 
-  * ``name`` -- this is the name of the container, similiar to the name attribute in Docker.
-  *
+  * ``name`` (optional) -- this is the name of the container, similar to the name attribute in Docker.
+  * ``image`` -- the image we want to use for the container, just like with Docker.
+  * ``command`` (optional) -- the command we want to run in the container. Here we are running a short BASH script.
+
+
+Creating the Pod In K8s
+~~~~~~~~~~~~~~~~~~~~~~~
+
+We are now ready to create our pod in k8s. To do so, we use the ``kubectl apply`` command. In general, when you have
+a description of a resource that you want to create or update in k8s, the ``kubectl apply`` commnanf can be used.
+
+In this case, our description is contained in a file, so we use the ``-f`` flag. Try this now:
+
+.. code-block:: bash
+
+  $ kubectl apply -f pod-basic.yml
+
+If all went well and k8s accepted your request, you should see an output like this:
+
+.. code-block:: bash
+
+  pod/hello created
 
 In practice, we won't be creating many ``Pod`` resources directly -- we'll be creating other resources, such as
 ``deployments`` that are made up of ``Pod`` resources -- but it is important to understand pods and to be able to work
 with pods using ``kubectl`` for debugging and other management tasks.
 
 
+Working With Pods
+~~~~~~~~~~~~~~~~~
+
+We can use additional ``kubectl`` commands to get information about the pods we run on k8s.
+
+Listing Pods
+-------------
+For example, we can list the pods on the cluster with ``kubectl get <object_type>`` -- in this case, the object type
+is "pods":
+
+.. code-block:: bash
+
+  $ kubectl get pods
+
+    NAME                             READY   STATUS    RESTARTS   AGE
+    ds-staging-6df657fbd-tbht5       1/1     Running   0          34d
+    elasticsearch-748f666f4f-svf2h   1/1     Running   0          76d
+    hello                            1/1     Running   0          3s
+    kibana-f5b79569f-r4pl6           1/1     Running   0          78d
+    sidecartest-5454b7d49b-q8fvw     3/3     Running   472        78d
+
+The output is fairly self-explanatory. We see a line for every pod which includes its name, status, the number of times
+it has been restarted and its age. Our ``hello`` pod is listed above, with an age of ``3s`` because we just started it
+but it is already RUNNING.
+
+A Word on Authentication and Namespaces
+---------------------------------------
+
+With all the students running their own pods on the same k8s cluster, you might be wondering why you only see your
+pod or why you don't see my pods? The reason is that when you make an API request to k8s, you tell the API who you
+are and what *namespace* you want to make the request in. Namespaces in k8s are logically isolated views or partitions
+of the k8s objects. Your ``kubectl`` client is configured to make requests in a namespace that is private to you; we set
+these namespaces up for COE 332.
+
+Geting and Describing Pods
+--------------------------
+
+We can pass the pod name to the ``get`` command -- i.e.,``kubectl get pods <pod_name>`` -- to just get information on
+a single pod
+
+.. code-block:: bash
+
+  $ kubectl get pods hello
+    NAME    READY   STATUS    RESTARTS   AGE
+    hello   1/1     Running   0          3m1s
+
+The ``-o wide`` flag can be used to get more information:
+
+.. code-block:: bash
+
+  $ kubectl get pods hello -o wide
+    NAME    READY   STATUS    RESTARTS   AGE    IP            NODE   NOMINATED NODE   READINESS GATES
+    hello   1/1     Running   0          3m1s   10.244.5.28   c04    <none>           <none>
+
+Finally, the ``kubectl decribe <resource_type> <resource_name>`` command gives additional information, including the
+k8s events at the bottom. While we won't go into the details now, this information can be helpful when troublshooting
+a pod that has failed:
+
+.. code-block:: bash
+
+  $ kubectl describe pods hello
+    Name:         hello
+    Namespace:    designsafe-jupyter-stage
+    Priority:     0
+    Node:         c04/172.16.120.11
+    Start Time:   Fri, 26 Feb 2021 10:12:43 -0600
+    Labels:       <none>
+    Annotations:  <none>
+    Status:       Running
+    IP:           10.244.5.28
+    IPs:
+      IP:  10.244.5.28
+    Containers:
+      hello:
+        Container ID:  containerd://b0e2d0eb8dc7717567886c99cfb30b9245c99f2b2f3a6610d5d6fe24fe8866b8
+        Image:         busybox
+        Image ID:      docker.io/library/busybox@sha256:c6b45a95f932202dbb27c31333c4789f45184a744060f6e569cc9d2bf1b9ad6f
+        Port:          <none>
+        Host Port:     <none>
+        Command:
+          sh
+          -c
+          echo "Hello, Kubernetes!" && sleep 3600
+        State:          Running
+          Started:      Mon, 01 Mar 2021 11:14:38 -0600
+        Last State:     Terminated
+          Reason:       Completed
+          Exit Code:    0
+          Started:      Mon, 01 Mar 2021 10:14:37 -0600
+          Finished:     Mon, 01 Mar 2021 11:14:37 -0600
+        Ready:          True
+        Restart Count:  73
+        Environment:    <none>
+        Mounts:
+          /var/run/secrets/kubernetes.io/serviceaccount from default-token-xpg9m (ro)
+    Conditions:
+      Type              Status
+      Initialized       True
+      Ready             True
+      ContainersReady   True
+      PodScheduled      True
+    Volumes:
+      default-token-xpg9m:
+        Type:        Secret (a volume populated by a Secret)
+        SecretName:  default-token-xpg9m
+        Optional:    false
+    QoS Class:       BestEffort
+    Node-Selectors:  <none>
+    Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                     node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+    Events:
+      Type    Reason   Age                    From     Message
+      ----    ------   ----                   ----     -------
+      Normal  Pulling  9m32s (x74 over 3d1h)  kubelet  Pulling image "busybox"
+      Normal  Created  9m31s (x74 over 3d1h)  kubelet  Created container hello
+      Normal  Started  9m31s (x74 over 3d1h)  kubelet  Started container hello
+      Normal  Pulled   9m31s                  kubelet  Successfully pulled image "busybox" in 601.12516ms
+
+
+Getting Pod Logs
+----------------
+
+Finally, we can use ``kubectl logs <pod_name>`` command to get the logs associated with a pod:
+
+.. code-block:: bash
+
+  $ kubectl logs hello
+    Hello, Kubernetes!
+
+Note that the ``logs`` command does not include the resource name ("pods") because it only can be applied to pods. The
+``logs`` command in k8s is equivalent to that in Docker; it returns the standard output (stdout) of the container.
+
+
 Additional Resources
-~~~~~~~~~~~~~~~~~~~~
+====================
 
  * `k8s Pod Reference <https://kubernetes.io/docs/concepts/workloads/pods/>`_
 
