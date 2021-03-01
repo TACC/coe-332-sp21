@@ -11,4 +11,3 @@ large, complex, python-based applications that are accessible through the web.
 
    intro_http_rest
    intro_flask
-   flask_continued
