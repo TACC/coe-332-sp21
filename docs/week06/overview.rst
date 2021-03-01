@@ -1,9 +1,6 @@
 Week 6: Advanced Flask, Containerizing Flask
 ============================================
 
-Content will be updated the week of Feb 22
-Paragraph
-
 In this sixth week of class, we will dive deeper into the Flask framework to 
 see how it can employ multiple URLs / endpoints, receive and decode JSON data,
 and handle query parameters. We will also containerize a Flask app using Docker.
