@@ -113,7 +113,10 @@ Find your container number, and pause it
 ``docker stop <your container number>``
 
 
-### Homework #### Part B Containerize your Dr. Moreau apps! Create a route that creates one random animal. Post a link to your route to Slack. Have another classmate hit your route, and build an animal.
+Homework Part b
+---------------
+
+### Homework ### Part B Containerize your Dr. Moreau apps! Create a route that creates one random animal. Post a link to your route to Slack. Have another classmate hit your route, and build an animal.
 
  
 
