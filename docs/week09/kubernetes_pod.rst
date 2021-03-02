@@ -36,8 +36,8 @@ and your TACC username as follows:
 You will be prompted for your TACC username and password, just as you are when connecting to isp02.
 
 
-Hello, Kubernetes
------------------
+First Commands with k8s
+-----------------------
 
 We will use the Kubernetes Command Line Interface (CLI) referred to as "kubectl" (pronounced "Kube control") to make
 requests to the Kubernetes API. We could use any HTTP client, including a command-line client such as curl, but ``kubectl``
@@ -98,6 +98,10 @@ and a shared network address.
   By far, the majority pods you will meet in the wild, including the ones used in this course, will only include one
   container. A pod with multiple containers can be thought of as an "advanced" use case.
 
+
+Hello, Kubernetes
+~~~~~~~~~~~~~~~~~
+
 To begin, we will define a pod with one container. As we will do with all the resources we want to create in k8s, we
 will describe our pod in a yaml file.
 
@@ -143,7 +147,7 @@ The pod spec we defined looked like this:
           command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
 There is just one stanza, the ``containers`` stanza, which is a list of containers (recall that pods can contain
-multiple containers). Here we are definging just one container. We provide:
+multiple containers). Here we are defining just one container. We provide:
 
   * ``name`` (optional) -- this is the name of the container, similar to the name attribute in Docker.
   * ``image`` -- the image we want to use for the container, just like with Docker.
@@ -169,7 +173,7 @@ If all went well and k8s accepted your request, you should see an output like th
   pod/hello created
 
 In practice, we won't be creating many ``Pod`` resources directly -- we'll be creating other resources, such as
-``deployments`` that are made up of ``Pod`` resources -- but it is important to understand pods and to be able to work
+``deployments`` that are made up of pods -- but it is important to understand pods and to be able to work
 with pods using ``kubectl`` for debugging and other management tasks.
 
 
@@ -196,7 +200,7 @@ is "pods":
 
 The output is fairly self-explanatory. We see a line for every pod which includes its name, status, the number of times
 it has been restarted and its age. Our ``hello`` pod is listed above, with an age of ``3s`` because we just started it
-but it is already RUNNING.
+but it is already RUNNING. Several additional pods are listed in my output above due to prior work sessions.
 
 A Word on Authentication and Namespaces
 ---------------------------------------
