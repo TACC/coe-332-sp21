@@ -117,7 +117,7 @@ Create a file called ``pod-basic.yml``, open it up in an editor and paste the fo
     spec:
       containers:
         - name: hello
-          image: busybox
+          image: ubuntu:18.04
           command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
 Let's break this down. The top four stanzas are common to all k8s resource descriptions:
@@ -143,7 +143,7 @@ The pod spec we defined looked like this:
     spec:
       containers:
         - name: hello
-          image: busybox
+          image: ubuntu:18.04
           command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
 There is just one stanza, the ``containers`` stanza, which is a list of containers (recall that pods can contain
@@ -252,8 +252,8 @@ a pod that has failed:
     Containers:
       hello:
         Container ID:  containerd://b0e2d0eb8dc7717567886c99cfb30b9245c99f2b2f3a6610d5d6fe24fe8866b8
-        Image:         busybox
-        Image ID:      docker.io/library/busybox@sha256:c6b45a95f932202dbb27c31333c4789f45184a744060f6e569cc9d2bf1b9ad6f
+        Image:         ubuntu:18.04
+        Image ID:      docker.io/library/ubuntu:18.04@sha256:c6b45a95f932202dbb27c31333c4789f45184a744060f6e569cc9d2bf1b9ad6f
         Port:          <none>
         Host Port:     <none>
         Command:
@@ -290,10 +290,10 @@ a pod that has failed:
     Events:
       Type    Reason   Age                    From     Message
       ----    ------   ----                   ----     -------
-      Normal  Pulling  9m32s (x74 over 3d1h)  kubelet  Pulling image "busybox"
+      Normal  Pulling  9m32s (x74 over 3d1h)  kubelet  Pulling image "ubuntu:18.04"
       Normal  Created  9m31s (x74 over 3d1h)  kubelet  Created container hello
       Normal  Started  9m31s (x74 over 3d1h)  kubelet  Started container hello
-      Normal  Pulled   9m31s                  kubelet  Successfully pulled image "busybox" in 601.12516ms
+      Normal  Pulled   9m31s                  kubelet  Successfully pulled image "ubuntu:18.04" in 601.12516ms
 
 
 Getting Pod Logs
