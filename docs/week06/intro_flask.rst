@@ -1,5 +1,5 @@
-Introduction to the Flask Web Server Microframework
-===================================================
+Introduction to Flask
+=====================
 
 Flask is a Python library and framework for building web servers. We
 want to learn how to provide web services. Some of the defining
