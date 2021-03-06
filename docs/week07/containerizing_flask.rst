@@ -27,7 +27,7 @@ save/create your ``app.py`` in this folder
         return "Hello World!!!"
    
     # the next statement should always appear at the bottom of your flask app
-    if __name__ == 'main':
+    if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
     
