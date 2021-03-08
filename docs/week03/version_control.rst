@@ -271,7 +271,7 @@ If we run ``git status`` now:
 
 .. code-block:: bash
 
-   $ git status
+   [isp02]$ git status
    # On branch master
    # Untracked files:
    #   (use "git add <file>..." to include in what will be committed)
