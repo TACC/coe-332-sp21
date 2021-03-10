@@ -17,24 +17,25 @@ Step 2
 
 save/create your ``app.py`` in this folder
 
-::
+.. code-block:: python
 
     from flask import Flask
+
     app = Flask(__name__)
 
     @app.route('/', methods = ['GET'])
-        def helloworld():
-        return "Hello World!!!"
+    def hello_world():
+        return "Hello, World!!!"
    
     # the next statement should always appear at the bottom of your flask app
     if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+        app.run(debug=True, host='0.0.0.0')
 
     
 Step 3
 ------
 
-create a requirments file - ``requirements.txt`` - in your web directory
+create a requirements file - ``requirements.txt`` - in your web directory and add
 
 ``Flask==1.1.1``
 
@@ -106,17 +107,18 @@ i.e ``curl localhost:5045``
 Step 9
 ------
 
-bring if down! Clean up after yourself
-Find your container number, and pause it
+bring it down! To clean up after yourself, find your container number, and pause it
 
 ``docker ps -a``
+
 ``docker stop <your container number>``
 
 
 Homework Part b
 ---------------
 
-### Homework ### Part B Containerize your Dr. Moreau apps! Create a route that creates one random animal. Post a link to your route to Slack. Have another classmate hit your route, and build an animal.
+Containerize your Dr. Moreau apps! Create a route that creates one random animal. Post
+a link to your route to Slack. Have another classmate hit your route, and build an animal.
 
  
 
