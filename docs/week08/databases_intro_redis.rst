@@ -150,3 +150,12 @@ The .set() and .get() Methods
 
 This saved a key in the Redis server (db=0) with key my_key and value my_value. Note the method returned True, indicating that the request was successful.
 
+   - We can retrieve it with:
+      -  >>> rd.get('my_key')
+      - Out[2]: b'my_value'
+
+Note: 
+Note that b'my_value' was returned; in particular, Redis returned binary data (i.e., type bytes).
+the string was encoded for us (in this case, using Unicode). We could have been explicit and set the encoding ourselves.
+
+
