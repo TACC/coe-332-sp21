@@ -261,10 +261,17 @@ Containerizing Redis
 Using Docker, starting and running a Redis server can be accomplished in two easy steps. Assuming docker is running:
 
 Pull the official Redis image for version 5.0.0:
-$ docker pull redis:5.0.0
+
+.. code-block:: console
+   
+   $ docker pull redis:5.0.0
 
 Start the redis server in a container:
-$ docker run -p <your redis port>:6379 redis:5.0.0
+
+.. code-block:: console
+
+   $ docker run -p <your redis port>:6379 redis:5.0.0
+
 
 Note: the above command will start the Redis container in the foreground which can be helpful for seeing logs, etc. However, you will have the need to start it in the background (detached or daemon mode)
 
