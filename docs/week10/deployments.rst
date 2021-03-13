@@ -472,7 +472,7 @@ Solution:
 
 
 Additional Resources
-====================
+--------------------
 
  * `Kubernetes Deployments Documentation <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>`_
  * `Persistent Volumes <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>`_
