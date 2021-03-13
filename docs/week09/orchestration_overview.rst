@@ -33,13 +33,14 @@ and number of components grows, some systems may encounter additional challenges
 Orchestration Systems
 ^^^^^^^^^^^^^^^^^^^^^
 
+Orchestration systems are built to help with one ore more of the above challenges.
 Below we briefly cover some of the more popular, open-source container orchestration systems. This is by no means an
 exhaustive list.
 
 Docker Compose
 --------------
 You have already seen a basic container orchestration system -- Docker Compose. The Docker Compose system allows users
-to describe their application in a ``docker-compose.yml`` file, including the ``services``, ``networks`` and
+to describe their application in a ``docker-compose.yml`` file, including the ``services``, ``networks``,
 ``volumes`` and other aspects of the deployment. Docker Compose:
 
  * Runs Docker containers on a single computer, the machine where docker-compose is installed and run.
@@ -64,7 +65,7 @@ containers across the cluster. Docker Swarm:
 Mesos
 -----
 Apache Mesos is a general-purpose cluster management system for deploying both containerized and non-containerized
-applications across multiple computers. Mesos by itself is quite low-level and requires the use of a *frameworks* to
+applications across multiple computers. Mesos by itself is quite low-level and requires the use of *frameworks* to
 deploy actual applications. For example, Marathon is a popular Mesos framework for deploying containerized applications,
 while the Mesos Hydra framework can be used for deploying MPI-powered applications, such as those used in traditional
 HPC applications.

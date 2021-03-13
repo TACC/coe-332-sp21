@@ -2,9 +2,15 @@ Deployments
 ===========
 
 Deployments are an abstraction and resource type in Kubernetes that can be used to represent long-running application
-components, such as databases, REST APIs, or asynchronous worker programs. Deployments are defined with a pod
-definition and a replication strategy, such as, "run 3 instances of this pod across thfe cluster" or "run an instance
-of this pod on every worker node in the k8s cluster."
+components, such as databases, REST APIs, or asynchronous worker programs. The key idea with deployments is that they
+should *always be running*.
+
+Imagine a program that runs web server for a blog site. The blog website should alawys be available, 24 hours a day,
+7 days a week. If the blog web server program crashes, it would ideally be restarted immediately so that the blog site
+was available again. This is the main idea behind deployments.
+
+Deployments are defined with a pod definition and a replication strategy, such as, "run 3 instances of this pod across
+the cluster" or "run an instance of this pod on every worker node in the k8s cluster."
 
 For this class, we will define deployments instead of pods, as they come with a number of advantages. Deployments:
 
@@ -42,7 +48,31 @@ called ``deployment-basic.yml``
               image: ubuntu:18.04
               command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
-Let's break this down.
+Let's break this down. Recall that the top four attributes are common to all k8s resource descriptions, however it is
+worth noting:
+
+  * ``apiVersion`` -- We need to use version ``apps/v1`` here. In k8s, different functionalities are packaged into
+    different APIs. Deployments are part of the `apps/v1`` API, so we must specify that here.
+  * ``metadata`` -- The ``metadata.name`` gives our deployment object a name. This part is similar to when we defined pods.
+    However, the ``labels`` concept is new. k8s uses labels to allow objects to refer to other objects in a decoupled way.
+    A label in k8s is nothing more than a ``name: value`` pair that users create to organize objects and add information
+    meaningful to the user. In this case, the ``app`` is the name and ``hello-app`` is the value.
+
+Let's look at the ``spec`` stanza for the deployment above.
+
+  * ``replicas`` -- Defines how many pods we want running for this deployment, in this case, just 1.
+  * ``selector`` -- This is how we tell k8s where to find the pods to manage for the deployment. Note we are using labels
+    here, the ``app: hello-app`` label in particular.
+  * ``template`` -- Deployments match one or more pod descriptions defined in the template. Note that in the ``metadata``
+    of the template, we provide the same lable (``app: hello-app``) as we did in the ``matchLabels`` stanza of the
+    ``selector``. This tells k8s that this spec is part of the deployment.
+  * ``template.spec`` -- This is a pod spec, just like we worked with last time.
+
+.. note::
+  If the labels, selectors and matchLables seems confusing and complicated, that's understandable. These semantics allow
+  for complex deployments that dynamically match different pods, but for the deployments in this class, you will not
+  need this extra complexity. As long as you ensure the label in the ``template`` is the same as the label in the
+  ``selector.matchLables`` your deployments will work.
 
 
 We create a deployment in k8s using the ``apply`` command, just like when creating a pod:
@@ -108,7 +138,7 @@ If we then immediately list the pods, we see something interesting:
 We see a new pod (in this case, "hello-deployment-9794b4889-sx6jc") was created and started by k8s for our hello
 deployment automatically! k8s did this because we instructed it that we wanted 1 replica pod to be running in the
 deployment's ``spec`` -- this was the *desired* state -- and when that didn't match the actual state (0 pods)
-k8s worked to change it.
+k8s worked to change it. Remember, deployments are for programs that should *always be running*.
 
 What do you expect to happen if we delete the original "hello" pod? Will k8s start a new one? Let's try it
 
@@ -223,7 +253,7 @@ These have the following effects:
   * The ``volumeMounts`` describe a ``mountPath`` in the container that should be provided by a volume instead of what
     might (possibly) be contained in the image at that path. Whatever is provided by the volume will overwrite anything
     in the image at that location.
-  * The ``volumes`` stanza describes a volume with a given name should be fulfilled with a specific persistentVolumeClaim.
+  * The ``volumes`` stanza state that a volume with a given name should be fulfilled with a specific persistentVolumeClaim.
     Since the volume name (``hello-<username>-data``) matches the name in the ``volumeMounts`` stanza, this volume will be
     used.
   * In k8s, a persistent volume claim makes a request for some storage from a storage resource configured by the k8s
@@ -245,7 +275,7 @@ However, if we list pods we see something curious:
     hello-deployment-9794b4889-vp6mp        1/1     Running   1          62m
     hello-pvc-deployment-74f985fffb-g9zd7   0/1     Pending   0          4m22s
 
-Our "hello-deployment"s are still running fine but our new "hello-pvc-deployment" is stoll in "Pending". It appears to be
+Our "hello-deployment"s are still running fine but our new "hello-pvc-deployment" is stuck in "Pending". It appears to be
 stuck. What could be wrong?
 
 We can ask k8s to describe that pod to get more details:
@@ -323,7 +353,8 @@ Exec Commands in a Running Pod
 ------------------------------
 
 Because the command running within the "hello-pvc-deployment" pod redirected the echo statement to a file, the
-hello-pvc-deployment-ff5759b64-sc7dk will have no logs. (Exercise: confirm this is the case using the ``logs`` command).
+hello-pvc-deployment-ff5759b64-sc7dk will have no logs. (You can confirm this is the case for yourself using the ``logs``
+command as an exercise).
 
 In cases like these, it can be helpful to run additional commands in a running pod to explore what is going on.
 In particular, it is often useful to run shell in the pod container.

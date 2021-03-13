@@ -13,7 +13,7 @@ Users communicate with k8s by making requests to its API. The following steps ou
  1) Requests to k8s API describe the user's *desired state* on the cluster; for example, the desire that 3 containers of
     a certain image are running.
  2) The k8s API schedules new containers to run on one or more worker nodes.
- 3) After the container is started, the Kubernetes deployment controller, installed on each worker node, monitors the
+ 3) After the containers are started, the Kubernetes deployment controller, installed on each worker node, monitors the
     containers on the node.
  4) The k8s components, including the API and the deployment controllers, maintain both the *desired state* and the
     *actual state* in a distributed database. The components continuously coordinate together to make the actual state
@@ -76,7 +76,7 @@ You should see output similar to the following:
       platform: linux/amd64
 
 This command made an API request to the TACC Freetail k8s cluster and returned information about the version
-of k8s running there (under ``serverVersion``) as well as the version of the `kubectl`` that we are running (under
+of k8s running there (under ``serverVersion``) as well as the version of the ``kubectl`` that we are running (under
 ``clientVersion``).
 
 .. note::
@@ -120,7 +120,7 @@ Create a file called ``pod-basic.yml``, open it up in an editor and paste the fo
           image: ubuntu:18.04
           command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
-Let's break this down. The top four stanzas are common to all k8s resource descriptions:
+Let's break this down. The top four attributes are common to all k8s resource descriptions:
 
   * ``apiVersion`` -- describes what version of the k8s API we are working in. We are using ``v1``.
   * ``kind`` -- tells k8s what kind of resource we are describing, in this case a ``Pod``.
@@ -147,10 +147,10 @@ The pod spec we defined looked like this:
           command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
 There is just one stanza, the ``containers`` stanza, which is a list of containers (recall that pods can contain
-multiple containers). Here we are defining just one container. We provide:
+multiple containers). Here we are defining just one container. For each container, we provide:
 
   * ``name`` (optional) -- this is the name of the container, similar to the name attribute in Docker.
-  * ``image`` -- the image we want to use for the container, just like with Docker.
+  * ``image`` (required) -- the image we want to use for the container, just like with Docker.
   * ``command`` (optional) -- the command we want to run in the container. Here we are running a short BASH script.
 
 
@@ -214,7 +214,7 @@ these namespaces up for COE 332.
 Geting and Describing Pods
 --------------------------
 
-We can pass the pod name to the ``get`` command -- i.e.,``kubectl get pods <pod_name>`` -- to just get information on
+We can pass the pod name to the ``get`` command -- i.e., ``kubectl get pods <pod_name>`` -- to just get information on
 a single pod
 
 .. code-block:: bash
@@ -311,7 +311,7 @@ Note that the ``logs`` command does not include the resource name ("pods") becau
 
 
 Additional Resources
-====================
+~~~~~~~~~~~~~~~~~~~~
 
  * `k8s Pod Reference <https://kubernetes.io/docs/concepts/workloads/pods/>`_
 
