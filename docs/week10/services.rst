@@ -37,7 +37,7 @@ pods using their IP address.
 
 Ports
 -----
-To communicate with a program running on a network, we use of ports. We saw how our flask program used port 5000 to
+To communicate with a program running on a network, we use ports. We saw how our flask program used port 5000 to
 communicate HTTP requests from clients. We can expose ports in our k8s deployments by defining a ``ports`` stanza in
 our ``template.spec.containers`` object. Let's try that now.
 
@@ -160,14 +160,14 @@ EXERCISE
               image: python:3.9
               command: ['sleep', '999999999']
 
-(Hint: paste the contenat into a new file called ``deployment-python-debug.yml``  and then use the ``kubectl apply``
+(Hint: paste the content into a new file called ``deployment-python-debug.yml``  and then use the ``kubectl apply``
 command).
 
-2. Exec into the running pod for this deployment. (Hint: then find the pod name and then use the ``kubectl exec``
+2. Exec into the running pod for this deployment. (Hint: find the pod name and then use the ``kubectl exec``
 command, running the shell (``/bin/bash``) command in it).
 
 Once we have a shell running inside our debug deployment pod, we can try to access our flask server. Recall that
-the IP and port for the flask server were determined above to be 10.244.7.95:5000 (yours will likely be different).
+the IP and port for the flask server were determined above to be 10.244.7.95:5000 (yours will be different).
 
 If we try to access it using curl from within the debug container, we get:
 
@@ -190,7 +190,7 @@ get a response:
   root@py-debug-deployment-5cc8cdd65f-xzhzq: $ curl 10.244.7.95:5000/hello-service
   Hello world
 
-Great! k8s networking from within the private network is working!
+Great! k8s networking from within the private network is working as expected!
 
 
 Services
@@ -201,8 +201,8 @@ we know the pods making up a deployment come and go. Each time a pod is destroye
 IP address. Moreover, we can scale the number of replica pods for a deployment up and down to handle more or less load.
 
 How would an application that needs to communicate with a pod know which IP address to use? If there are 3 pods comprising
-a deployment, which one should it use? This problem is referred to as the *service discovery problem* and k8s has a
-solution for it.. the ``Service`` abstraction.
+a deployment, which one should it use? This problem is referred to as the *service discovery problem* in distributed
+systems, and k8s has a solution for it.. the ``Service`` abstraction.
 
 A k8s service provides an abstract way of exposing an application running as a collection of pods on a single IP address
 and port. Let's define a service for our hello-flask deployment.
@@ -223,3 +223,67 @@ Copy and paste the following code into a file called ``hello-flask-service.yml``
       ports:
       - name: helloflask
         port: 5000
+        targetPort: 5000
+
+Let's look at the ``spec`` description for this service.
+
+  * ``type`` -- There are different types of k8s services. Here we are creating a ``ClusterIP`` service. This creates an
+    IP address on the private k8s network for the service. We may see other types of k8s services later.
+  * ``selector`` -- This tells k8s what pod containers to match for the service. Here we are using a label,
+    ``app: helloflask``, which means k8s will link all pods with this label to our service.
+  * ``ports`` - This is a list of ports to expose in the service.
+  * ``ports.port`` -- This is the port to expose on the service's IP.
+  * ``ports.targetPort`` -- This is the port on the pods to target.
+
+We create this service using the ``kubectl apply`` command, as usual:
+
+.. code-block:: bash
+
+  $ kubectl apply -f hello-flask-service.yml
+    service/hello-service configured
+
+We can list the services:
+
+.. code-block:: bash
+
+    $ k get services
+    NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
+    hello-service   ClusterIP   10.108.58.137    <none>        5000/TCP                        4s
+
+We see k8s created a new service with IP ``10.108.58.137``. We should be able to use this IP address (and port 5000) to
+communicate with our flask server. Let's try it. Remember that we have to be on the k8s private network, so we need to
+exec into our debug deployment pod first.
+
+.. code-block:: bash
+
+  $ kubectl exec -it py-debug-deployment-5cc8cdd65f-xzhzq -- /bin/bash
+
+  # from inside the container ---
+  root@py-debug-deployment-5cc8cdd65f-xzhzq:/ $ curl 10.108.58.137:5000/hello-service
+  Hello world
+
+It worked! Now, if we remove our hello-flask pod, k8s will start a new one with a new IP address, but our service will
+automatically route requests to the new pod. Let's try it.
+
+.. code-block:: bash
+
+  # remove the pod ---
+  $ kubectl delete pods helloflask-86d4c7d8db-2rkg5
+    pod "helloflask-86d4c7d8db-2rkg5" deleted
+
+  # see that a new one was created ---
+  $ kubectl get pods
+    NAME                                    READY   STATUS    RESTARTS   AGE
+    hello-deployment-9794b4889-w4jlq        1/1     Running   2          175m
+    hello-pvc-deployment-6dbbfdc4b4-sxk78   1/1     Running   233        9d
+    helloflask-86d4c7d8db-vbn4g             1/1     Running   0          62s
+
+  # it has a new IP ---
+  $ kubectl get pods helloflask-86d4c7d8db-vbn4g -o wide
+    NAME                          READY   STATUS    RESTARTS   AGE    IP            NODE   NOMINATED NODE   READINESS GATES
+    helloflask-86d4c7d8db-vbn4g   1/1     Running   0          112s   10.244.7.96   c05    <none>           <none>
+  # Yep, 10.244.7.96 -- that's different; the first pod had IP 10.244.7.95
+
+  # but back in the debug deployment pod, check that we can still use the service IP --
+  root@py-debug-deployment-5cc8cdd65f-xzhzq:/ $ curl 10.108.58.137:5000/hello-service
+  Hello world
