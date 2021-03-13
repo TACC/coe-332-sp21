@@ -2,21 +2,22 @@ Deployments
 ===========
 
 Deployments are an abstraction and resource type in Kubernetes that can be used to represent long-running application
-components, such as databases, REST APIs, or asynchronous worker programs. The key idea with deployments is that they
-should *always be running*.
+components, such as databases, REST APIs, web servers, or asynchronous worker programs. The key idea with deployments is
+that they should *always be running*.
 
-Imagine a program that runs web server for a blog site. The blog website should alawys be available, 24 hours a day,
+Imagine a program that runs a web server for a blog site. The blog website should alawys be available, 24 hours a day,
 7 days a week. If the blog web server program crashes, it would ideally be restarted immediately so that the blog site
 was available again. This is the main idea behind deployments.
 
 Deployments are defined with a pod definition and a replication strategy, such as, "run 3 instances of this pod across
 the cluster" or "run an instance of this pod on every worker node in the k8s cluster."
 
-For this class, we will define deployments instead of pods, as they come with a number of advantages. Deployments:
+For this class, we will define deployments for our flask application and its associated components, as deployments
+come with a number of advantages over defining "raw" pods. Deployments:
 
   * Can be used to run multiple instances of a pod, to allow for more computing to meet demands put on a system.
-  * Are actively monitored by k8s for health -- if a pod in a deployment crashes, k8s will try to start a new one
-    automatically.
+  * Are actively monitored by k8s for health -- if a pod in a deployment crashes or is otherwise deemed unhealthy, k8s
+    will try to start a new one automatically.
 
 
 Creating a Basic Deployment
@@ -52,17 +53,20 @@ Let's break this down. Recall that the top four attributes are common to all k8s
 worth noting:
 
   * ``apiVersion`` -- We need to use version ``apps/v1`` here. In k8s, different functionalities are packaged into
-    different APIs. Deployments are part of the `apps/v1`` API, so we must specify that here.
+    different APIs. Deployments are part of the ``apps/v1`` API, so we must specify that here.
   * ``metadata`` -- The ``metadata.name`` gives our deployment object a name. This part is similar to when we defined pods.
     However, the ``labels`` concept is new. k8s uses labels to allow objects to refer to other objects in a decoupled way.
     A label in k8s is nothing more than a ``name: value`` pair that users create to organize objects and add information
-    meaningful to the user. In this case, the ``app`` is the name and ``hello-app`` is the value.
+    meaningful to the user. In this case, ``app`` is the name and ``hello-app`` is the value. Conceptually, you can think
+    of label names like variables and labels values as the value for the variable. In some other deployment, we may choose
+    to use label ``app: profiles`` to indicate that the deployment is for the "profiles" app.
 
 Let's look at the ``spec`` stanza for the deployment above.
 
-  * ``replicas`` -- Defines how many pods we want running for this deployment, in this case, just 1.
+  * ``replicas`` -- Defines how many pods we want running at a time for this deployment, in this case, we are asking
+    that just 1 pod be running at a time.
   * ``selector`` -- This is how we tell k8s where to find the pods to manage for the deployment. Note we are using labels
-    here, the ``app: hello-app`` label in particular.
+    again here, the ``app: hello-app`` label in particular.
   * ``template`` -- Deployments match one or more pod descriptions defined in the template. Note that in the ``metadata``
     of the template, we provide the same lable (``app: hello-app``) as we did in the ``matchLabels`` stanza of the
     ``selector``. This tells k8s that this spec is part of the deployment.
@@ -72,7 +76,8 @@ Let's look at the ``spec`` stanza for the deployment above.
   If the labels, selectors and matchLables seems confusing and complicated, that's understandable. These semantics allow
   for complex deployments that dynamically match different pods, but for the deployments in this class, you will not
   need this extra complexity. As long as you ensure the label in the ``template`` is the same as the label in the
-  ``selector.matchLables`` your deployments will work.
+  ``selector.matchLables`` your deployments will work. It's worth pointing out that the first use of the ``app: hello-app``
+  label for the deployment iteself (lines 5 and 6 of the yaml) could be removed without impacting the end result.
 
 
 We create a deployment in k8s using the ``apply`` command, just like when creating a pod:
@@ -107,12 +112,12 @@ We can also list pods, and here we see that k8s has created a pod for our deploy
 Note that we see our "hello" pod from earlier as well as the pod "hello-deployment-9794b4889-kms7p" that k8s created
 for our deployment. We can use all the kubectl commands associated with pods, including listing, describing and
 getting the logs. In particular, the logs for our "hello-deployment-9794b4889-kms7p" pod prints the same "Hello,
-Kubernetes!" message as our first pod.
+Kubernetes!" message, just as was the case with our first pod.
 
 Deleting Pods
 -------------
-However, there is one fundamental difference between the "hello" pod we created before and our "hello" deployment which
-can be seen when we delete pods.
+However, there is a fundamental difference between the "hello" pod we created before and our "hello" deployment which
+we have alluded to. This difference can be seen when we delete pods.
 
 To delete a pod, we use the ``kubectl delete pods <pod_name>`` command. Let's first delete our hello deployment pod:
 
@@ -208,6 +213,42 @@ EXERCISE
 1) Delete several of the hello deployment pods and see what happens.
 2) Scale the number of pods associated with the hello deployment back down to 1.
 
+ImagePullPolicy
+---------------
+
+When defining a deployment, we can specify an ``ImagePullPolicy`` which instructs k8s about when and how to download
+the image associated with the pod definition. For example, we can add ``imagePullPolicy: Always`` to our hello-deployment
+as follows:
+
+.. code-block:: yaml
+
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: hello-deployment
+      labels:
+        app: hello-app
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: hello-app
+      template:
+        metadata:
+          labels:
+            app: hello-app
+        spec:
+          containers:
+            - name: hellos
+              imagePullPolicy: Always
+              image: ubuntu:18.04
+              command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+
+and now k8s will always try to download the latest version of ``ubuntu:18.04`` from Docker Hub every time it creates
+a new pod for this deployment. Using ``imagePullPolicy: Always`` is nice during active development because you ensure
+k8s is always deploying the latest version of your code. Other possible values include ``IfNotPresent`` which instruct
+k8s to only pull the image if it doesn't already exist on the worker node.
+
 
 Mounts, Volumes and Persistent Volume Claims
 --------------------------------------------
@@ -250,12 +291,12 @@ Create a new file, ``deployment-pvc.yml``, with the following contents, replacin
 We have added a ``volumeMounts`` stanza to ``spec.containers`` and we added a ``volumes`` stanza to the ``spec``.
 These have the following effects:
 
-  * The ``volumeMounts`` describe a ``mountPath`` in the container that should be provided by a volume instead of what
-    might (possibly) be contained in the image at that path. Whatever is provided by the volume will overwrite anything
-    in the image at that location.
-  * The ``volumes`` stanza state that a volume with a given name should be fulfilled with a specific persistentVolumeClaim.
+  * The ``volumeMounts`` include a ``mountPath`` attribute whose value should be the path in the container that is to
+    be provided by a volume instead of what might possibly be contained in the image at that path. Whatever is provided
+    by the volume will overwrite anything in the image at that location.
+  * The ``volumes`` stanza states that a volume with a given name should be fulfilled with a specific persistentVolumeClaim.
     Since the volume name (``hello-<username>-data``) matches the name in the ``volumeMounts`` stanza, this volume will be
-    used.
+    used for the volumeMount.
   * In k8s, a persistent volume claim makes a request for some storage from a storage resource configured by the k8s
     administrator in advance. While complex, this system supports a variety of storage systems without requiring the
     application engineer to know details about the storage implementation.
@@ -263,10 +304,11 @@ These have the following effects:
 Note also that we have changed the command to redirect the output of the ``echo`` command to the file ``/data/out.txt``.
 This means that we should not expect to see the output in the logs for pod but instead in the file inside the container.
 
-However, if we list pods we see something curious:
+However, if we create this new deployment and then list pods we see something curious:
 
 .. code-block:: bash
 
+  $ kubectl apply -f deployment-pvc.yml
   $ kubectl get pods
     NAME                                    READY   STATUS    RESTARTS   AGE
     hello-deployment-9794b4889-mk6qw        1/1     Running   1          62m
@@ -275,8 +317,8 @@ However, if we list pods we see something curious:
     hello-deployment-9794b4889-vp6mp        1/1     Running   1          62m
     hello-pvc-deployment-74f985fffb-g9zd7   0/1     Pending   0          4m22s
 
-Our "hello-deployment"s are still running fine but our new "hello-pvc-deployment" is stuck in "Pending". It appears to be
-stuck. What could be wrong?
+Our "hello-deployment" pods are still running fine but our new "hello-pvc-deployment" pod is still in "Pending" status. It
+appears to be stuck. What could be wrong?
 
 We can ask k8s to describe that pod to get more details:
 
@@ -336,7 +378,7 @@ Great, with the pvc created, let's check back on our pods:
 
 .. code-block:: bash
 
-  $ k get pods
+  $ kubectl get pods
     NAME                                    READY   STATUS        RESTARTS   AGE
     hello-deployment-9794b4889-mk6qw        1/1     Running       46         46h
     hello-deployment-9794b4889-sx6jc        1/1     Running       46         46h
@@ -346,7 +388,7 @@ Great, with the pvc created, let's check back on our pods:
 
 Like magic, our "hello-pvc-deployment" now has a running pod without us making any additional API calls to k8s!
 This is the power of the declarative aspect of k8s. When we created the hello-pvc-deployment, we told k8s to always
-keep one pod with our desired properties running at all times, if possible, and k8s continues to try and implement our
+keep one pod with the properties specified running at all times, if possible, and k8s continues to try and implement our
 wishes until we instruct it to do otherwise.
 
 Exec Commands in a Running Pod
@@ -382,15 +424,15 @@ Let's exec a shell in our "hello-pvc-deployment-ff5759b64-sc7dk" pod and look ar
     root@hello-pvc-deployment-5b7d9775cb-xspn7:/#
 
 Notice how the shell prompt changes after we issue the ``exec`` command -- we are now "inside" the container, and our
-prompt has changed to "root@hello-pvc-deployment-5b7d9775cb-xspn" to indicate we are the root user.
+prompt has changed to "root@hello-pvc-deployment-5b7d9775cb-xspn" to indicate we are the root user within the container.
 
 Let' issue some commands to look around:
 
-.. code-block::
+.. code-block:: bash
 
   $ pwd
     /
-    # cool, exec put us at the root of the file system
+    # cool, exec put us at the root of the container's file system
 
   $ ls -l
     total 8
@@ -414,7 +456,8 @@ Let' issue some commands to look around:
     drwxrwxrwt   2 root root    6 Jan 18 21:03 tmp
     drwxr-xr-x   1 root root   18 Jan 18 21:02 usr
     drwxr-xr-x   1 root root   17 Jan 18 21:03 var
-    # great, a straightforward linux fs. we see the /data directory we mounted from the volume...
+    # as expected, a vanilla linux file system.
+    # we see the /data directory we mounted from the volume...
 
   $ ls -l data/out.txt
     -rw-r--r-- 1 root root 19 Mar  4 01:12 data/out.txt
@@ -445,7 +488,7 @@ following:
   3. What contents do you expect to find in the ``/data/out.txt`` file? Confirm your suspicions.
 
 
-Solution:
+*Solution*.
 
 .. code-block:: bash
 

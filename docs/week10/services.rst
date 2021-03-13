@@ -16,7 +16,7 @@ k8s Networking Overview
 k8s creates internal networks and attaches pod containers to them to facilitate communication between pods. For a number
 of reasons, including security, these networks are not reachable from outside k8s.
 
-We can learn the IP address on this internal network for a specific pod with the following command:
+Recall that we can learn the private network IP address for a specific pod with the following command:
 
 .. code-block:: bash
 
@@ -26,7 +26,7 @@ For example:
 
 .. code-block:: bash
 
-  $ kbectl get pods hello-deployment-9794b4889-mk6qw -o wide
+  $ kubectl get pods hello-deployment-9794b4889-mk6qw -o wide
     NAME                               READY   STATUS    RESTARTS   AGE   IP             NODE   NOMINATED NODE   READINESS GATES
     hello-deployment-9794b4889-mk6qw   1/1     Running   277        11d   10.244.3.176   c01    <none>           <none>
 
@@ -108,9 +108,9 @@ With our deployment created, we should see a new pod.
     NAME                          READY   STATUS    RESTARTS   AGE     IP            NODE   NOMINATED NODE   READINESS GATES
     helloflask-86d4c7d8db-2rkg5   1/1     Running   0          6m27s   10.244.7.95   c05    <none>           <none>
 
-  Therefore, the IP address is 10.244.7.95
+  # Therefore, the IP address is 10.244.7.95
 
-We found the IP address for our flask container, but if we try to communicate with it from the k8s master node, we will
+We found the IP address for our flask container, but if we try to communicate with it from the k8s API node, we will
 get an error:
 
 .. code-block:: bash
@@ -118,7 +118,7 @@ get an error:
   $ curl 10.244.7.95:5000
     curl: (7) Failed connect to 10.244.7.95:5000; Network is unreachable
 
-This is because the 10.244.*.* private k8s network is not available from the outside, not even from the master node.
+This is because the 10.244.*.* private k8s network is not available from the outside, not even from the API node.
 However, it *is* available from other pods in the namespace.
 
 
@@ -128,8 +128,9 @@ A Debug Deployment
 For exploring and debugging k8s deployments, it can be helpful to have a basic container on the network. We can
 create a deployment for this purpose.
 
-For example, let's create a deployment using the official python 3.9 image. We can run a sleep command and then, once
-the container pod is running, we can use ``exec`` to launch a shell inside the container.
+For example, let's create a deployment using the official python 3.9 image. We can run a sleep command inside the
+container as the primary command, and then, once the container pod is running, we can use ``exec`` to launch a shell
+inside the container.
 
 
 EXERCISE
@@ -182,8 +183,8 @@ If we try to access it using curl from within the debug container, we get:
 That's a different error from before, and that's good! This time, the error is from flask, and it indicates that flask
 doesn't have a route for the root path (``/``).
 
-The ``jstubbs/hello-flask`` image does have a route for the path  ``/hello-service``. If we try that one, we should
-get a response:
+The ``jstubbs/hello-flask`` image does not define a route for the root path (``/``) but it does define a route for the
+path  ``/hello-service``. If we try that path, we should get a response:
 
 .. code-block:: bash
 
@@ -230,10 +231,14 @@ Let's look at the ``spec`` description for this service.
   * ``type`` -- There are different types of k8s services. Here we are creating a ``ClusterIP`` service. This creates an
     IP address on the private k8s network for the service. We may see other types of k8s services later.
   * ``selector`` -- This tells k8s what pod containers to match for the service. Here we are using a label,
-    ``app: helloflask``, which means k8s will link all pods with this label to our service.
+    ``app: helloflask``, which means k8s will link all pods with this label to our service. Note that it is important that
+    this label match the label applied to our pods in the deployment, so that k8s links the service up to the correct
+    pods.
   * ``ports`` - This is a list of ports to expose in the service.
-  * ``ports.port`` -- This is the port to expose on the service's IP.
-  * ``ports.targetPort`` -- This is the port on the pods to target.
+  * ``ports.port`` -- This is the port to expose on the service's IP. This is the port clients will use when communicating
+    via the service's IP address.
+  * ``ports.targetPort`` -- This is the port on the pods to target. This needs to match the port specified in the pod
+    description (and the port the containerized program is binding to).
 
 We create this service using the ``kubectl apply`` command, as usual:
 
@@ -246,7 +251,7 @@ We can list the services:
 
 .. code-block:: bash
 
-    $ k get services
+    $ kubectl get services
     NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
     hello-service   ClusterIP   10.108.58.137    <none>        5000/TCP                        4s
 
@@ -287,3 +292,14 @@ automatically route requests to the new pod. Let's try it.
   # but back in the debug deployment pod, check that we can still use the service IP --
   root@py-debug-deployment-5cc8cdd65f-xzhzq:/ $ curl 10.108.58.137:5000/hello-service
   Hello world
+
+
+Note that k8s is doing something non-trivial here. Each pod could be running on one of any number of worker computers in
+the TACC k8s cluster. When the first pod was deleted and k8s created the second one, it is quite possible it started it
+on a different machine. So k8s had to take care of rerouting requests from the service to the new machine.
+
+k8s can be configured to do this "networking magic" in different ways. While the details are beyond the scope of this
+course, keep in mind that the virtual networking that k8s uses does come at a small cost. For most applications,
+including long-running web APIs and databases, this cost is negligible and isn't a concern. But for high-performance
+applications, and in particular, applications whose performance is bounded by the performance of the underlying network,
+the overhead can be significant.
