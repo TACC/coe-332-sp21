@@ -7,12 +7,12 @@ Filtering JSON Data by Example:
 
 .. code-block:: python
 
-    def getdata():
-	    with open("data_file.json", "r") as json_file:
-		    userdata == json.load(json_file)
-	    return userdata
-	
-    test = getdata();
+    def get_data():
+        with open("data_file.json", "r") as json_file:
+            user_data == json.load(json_file)
+    return user_data
+
+    test = get_data();
     print (type(test))
     output = [x for x in test if x['head'] == 'snake']
 
@@ -39,8 +39,8 @@ C.
 Write a consumer similar to:
 
 .. code-block:: python
-    import requests
 
+    import requests
 
     response = requests.get(url="http://localhost:5050/animals")
 

@@ -268,4 +268,4 @@ Additional Resources
 
 * `Bitbucket API <https://api.bitbucket.org/2.0/repositories/>`_
 * `Bitbucket API Documentation <https://developer.atlassian.com/bitbucket/api/2/reference/>`_
-* `Python requests Documentatino <https://requests.readthedocs.io/en/master/>`_
+* `Python requests Documentation <https://requests.readthedocs.io/en/master/>`_
