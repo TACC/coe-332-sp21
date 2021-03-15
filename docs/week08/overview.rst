@@ -9,6 +9,6 @@ our Redis database, and containerize both of our services.
 .. toctree::
    :maxdepth: 1
 
-   homework3
    databases_intro_redis
+   
 

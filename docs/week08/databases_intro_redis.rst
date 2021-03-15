@@ -167,6 +167,7 @@ This saved a key in the Redis server (db=0) with key my_key and value my_value. 
    - We can retrieve it with:
 
 .. code-block:: console
+
    >>> rd.get('my_key')
    Out[2]: b'my_value'
 

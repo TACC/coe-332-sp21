@@ -29,7 +29,7 @@ Then, create a new ``app.py`` (or copy an existing one) into this folder. It
 should have the following contents:
 
 .. code-block:: python3
-   ::linenos::
+   :linenos:
 
    from flask import Flask
 
