@@ -6,7 +6,7 @@ In this section we give an overview of the Kubernetes system and introduce the f
 Kubernetes Overview
 ~~~~~~~~~~~~~~~~~~~
 Kubernetes (k8s) is itself a distributed system of software components that run a cluster of one or more machines (physical
-computers or virtual machines). Each machine in a k8s cluster is either a "master" or a "worker" node.
+computers or virtual machines). Each machine in a k8s cluster is either a "manager" or a "worker" node.
 
 Users communicate with k8s by making requests to its API. The following steps outline how Kubernetes works at a high level:
 
@@ -158,7 +158,7 @@ Creating the Pod In K8s
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 We are now ready to create our pod in k8s. To do so, we use the ``kubectl apply`` command. In general, when you have
-a description of a resource that you want to create or update in k8s, the ``kubectl apply`` commnanf can be used.
+a description of a resource that you want to create or update in k8s, the ``kubectl apply`` command can be used.
 
 In this case, our description is contained in a file, so we use the ``-f`` flag. Try this now:
 

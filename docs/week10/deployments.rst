@@ -7,7 +7,7 @@ that they should *always be running*.
 
 Imagine a program that runs a web server for a blog site. The blog website should always be available, 24 hours a day,
 7 days a week. If the blog web server program crashes, it would ideally be restarted immediately so that the blog site
-was available again. This is the main idea behind deployments.
+becomes available again. This is the main idea behind deployments.
 
 Deployments are defined with a pod definition and a replication strategy, such as, "run 3 instances of this pod across
 the cluster" or "run an instance of this pod on every worker node in the k8s cluster."

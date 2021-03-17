@@ -11,3 +11,4 @@ expose our applications to the network.
 
    deployments
    services
+   k8s_cheat_sheet
