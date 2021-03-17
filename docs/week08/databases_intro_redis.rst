@@ -124,7 +124,7 @@ Running Redis
 
 .. code-block:: console
 
-   $ pip3 --user install redis
+   $ pip3 install --user redis
 
 -lets do interactive python
 
