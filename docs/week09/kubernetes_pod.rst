@@ -211,8 +211,8 @@ are and what *namespace* you want to make the request in. Namespaces in k8s are 
 of the k8s objects. Your ``kubectl`` client is configured to make requests in a namespace that is private to you; we set
 these namespaces up for COE 332.
 
-Geting and Describing Pods
---------------------------
+Getting and Describing Pods
+---------------------------
 
 We can pass the pod name to the ``get`` command -- i.e., ``kubectl get pods <pod_name>`` -- to just get information on
 a single pod
@@ -231,8 +231,8 @@ The ``-o wide`` flag can be used to get more information:
     NAME    READY   STATUS    RESTARTS   AGE    IP            NODE   NOMINATED NODE   READINESS GATES
     hello   1/1     Running   0          3m1s   10.244.5.28   c04    <none>           <none>
 
-Finally, the ``kubectl decribe <resource_type> <resource_name>`` command gives additional information, including the
-k8s events at the bottom. While we won't go into the details now, this information can be helpful when troublshooting
+Finally, the ``kubectl describe <resource_type> <resource_name>`` command gives additional information, including the
+k8s events at the bottom. While we won't go into the details now, this information can be helpful when troubleshooting
 a pod that has failed:
 
 .. code-block:: bash
@@ -314,4 +314,3 @@ Additional Resources
 ~~~~~~~~~~~~~~~~~~~~
 
  * `k8s Pod Reference <https://kubernetes.io/docs/concepts/workloads/pods/>`_
-

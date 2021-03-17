@@ -45,6 +45,7 @@ Create a file called ``hello-flask-deployment.yml`` and copy the following conte
 
 .. code-block:: yaml
 
+    ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -140,6 +141,7 @@ EXERCISE
 
 .. code-block:: yaml
 
+    ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -213,6 +215,7 @@ Copy and paste the following code into a file called ``hello-flask-service.yml``
 
 .. code-block:: yaml
 
+    ---
     apiVersion: v1
     kind: Service
     metadata:

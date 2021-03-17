@@ -77,7 +77,7 @@ runtimes that conform to the Container Runtime Interface (CRI) such as container
 entirely on containerized applications (unlike Mesos) and is not as similar to Docker Compose as Docker Swarm is,
 it provides a number of powerful features for modern, distributed systems management. Additionally, Kubernetes is
 available as a service on a large number of commercial cloud providers, including Amazon, Digital Ocean, Google, IBM,
-Microsoft, and many more, and TACC provides mutliple Kubernetes clusters in support of various research projects.
+Microsoft, and many more, and TACC provides multiple Kubernetes clusters in support of various research projects.
 
  * Supports running containerized applications across a cluster of machines for container runtimes conforming to the
    Container Runtime Interface (CRI), including Docker.

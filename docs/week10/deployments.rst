@@ -5,7 +5,7 @@ Deployments are an abstraction and resource type in Kubernetes that can be used 
 components, such as databases, REST APIs, web servers, or asynchronous worker programs. The key idea with deployments is
 that they should *always be running*.
 
-Imagine a program that runs a web server for a blog site. The blog website should alawys be available, 24 hours a day,
+Imagine a program that runs a web server for a blog site. The blog website should always be available, 24 hours a day,
 7 days a week. If the blog web server program crashes, it would ideally be restarted immediately so that the blog site
 was available again. This is the main idea behind deployments.
 
@@ -28,6 +28,7 @@ called ``deployment-basic.yml``
 
 .. code-block:: yaml
 
+    ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -68,7 +69,7 @@ Let's look at the ``spec`` stanza for the deployment above.
   * ``selector`` -- This is how we tell k8s where to find the pods to manage for the deployment. Note we are using labels
     again here, the ``app: hello-app`` label in particular.
   * ``template`` -- Deployments match one or more pod descriptions defined in the template. Note that in the ``metadata``
-    of the template, we provide the same lable (``app: hello-app``) as we did in the ``matchLabels`` stanza of the
+    of the template, we provide the same label (``app: hello-app``) as we did in the ``matchLabels`` stanza of the
     ``selector``. This tells k8s that this spec is part of the deployment.
   * ``template.spec`` -- This is a pod spec, just like we worked with last time.
 
@@ -77,14 +78,14 @@ Let's look at the ``spec`` stanza for the deployment above.
   for complex deployments that dynamically match different pods, but for the deployments in this class, you will not
   need this extra complexity. As long as you ensure the label in the ``template`` is the same as the label in the
   ``selector.matchLables`` your deployments will work. It's worth pointing out that the first use of the ``app: hello-app``
-  label for the deployment iteself (lines 5 and 6 of the yaml) could be removed without impacting the end result.
+  label for the deployment itself (lines 5 and 6 of the yaml) could be removed without impacting the end result.
 
 
 We create a deployment in k8s using the ``apply`` command, just like when creating a pod:
 
 .. code-block:: bash
 
-  $ kubectl apply -f basic-deploymnet.yml
+  $ kubectl apply -f deployment-basic.yml
 
 If all went well, k8s response should look like:
 
@@ -167,6 +168,7 @@ our deployment file and apply the changes. Let's modify our "hello" deployment t
 
 .. code-block:: yaml
 
+    ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -192,14 +194,14 @@ Apply the changes with:
 
 .. code-block:: bash
 
-  $ k apply -f deployment-basic.yml
+  $ kubectl apply -f deployment-basic.yml
     deployment.apps/hello-deployment configured
 
 When we list pods, we see k8s has quickly implemented our requested change:
 
 .. code-block:: bash
 
-    $ k get pods
+    $ kubectl get pods
     NAME                               READY   STATUS    RESTARTS   AGE
     hello-deployment-9794b4889-mk6qw   1/1     Running   0          11s
     hello-deployment-9794b4889-sx6jc   1/1     Running   0          15m
@@ -222,6 +224,7 @@ as follows:
 
 .. code-block:: yaml
 
+    ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -260,6 +263,7 @@ Create a new file, ``deployment-pvc.yml``, with the following contents, replacin
 
 .. code-block:: yaml
 
+    ---
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -345,13 +349,14 @@ At the bottom we see the "Events" section contains a clue: persistentvolumeclaim
 This is our problem. We told k8s to fill a volume with a persistent volume claim named "hello-jstubbs-data" but we
 never created that persistent volume claim. Let's do that now!
 
-Open up a file called ``hello-pvc.data`` and copy the following contents, being sure to replace ``<username>``
+Open up a file called ``hello-pvc.yml`` and copy the following contents, being sure to replace ``<username>``
 with your TACC username:
 
 .. code-block:: yaml
 
-    kind: PersistentVolumeClaim
+    ---
     apiVersion: v1
+    kind: PersistentVolumeClaim
     metadata:
       name: hello-<username>-data
     spec:
@@ -371,7 +376,7 @@ We create this pvc object with the usual ``kubectl apply`` command:
 
 .. code-block:: bash
 
-  $ kubectl apply -f pvc.yml
+  $ kubectl apply -f hello-pvc.yml
     persistentvolumeclaim/hello-jstubbs-data created
 
 Great, with the pvc created, let's check back on our pods:
@@ -426,7 +431,7 @@ Let's exec a shell in our "hello-pvc-deployment-ff5759b64-sc7dk" pod and look ar
 Notice how the shell prompt changes after we issue the ``exec`` command -- we are now "inside" the container, and our
 prompt has changed to "root@hello-pvc-deployment-5b7d9775cb-xspn" to indicate we are the root user within the container.
 
-Let' issue some commands to look around:
+Let's issue some commands to look around:
 
 .. code-block:: bash
 

@@ -5,7 +5,7 @@ In Week 9, we begin our study of container orchestration and the Kubernetes ("k8
 small HTTP application in the REST architecture using the flask framework. This HTTP application makes use of a database
 to persist state. In the coming weeks, we will add more components to our application, and this is very typical of a
 modern distributed system. As the number of components grows, the work required to deploy and maintain this system
-increases. Container orchestration systems such as k8s aid us in this deployment and manangement effort by allowing us
+increases. Container orchestration systems such as k8s aid us in this deployment and management effort by allowing us
 to run our applications across a cluster of machines and use APIs to make changes to the application deployment over
 time.
 
