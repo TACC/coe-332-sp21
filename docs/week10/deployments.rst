@@ -215,12 +215,70 @@ EXERCISE
 1) Delete several of the hello deployment pods and see what happens.
 2) Scale the number of pods associated with the hello deployment back down to 1.
 
+Updating Deployments with New Images
+------------------------------------
+When we have made changes to the software or other aspects of a container image and we are ready to deploy the new
+version to k8s, we have to update the pods making up the corresponding deployment. We will use two different strategies,
+one for our "test" environment and one for "production".
+
+Test Environments
+^^^^^^^^^^^^^^^^^
+A standard practice in software engineering is to maintain one or more "pre-production" environments, often times called
+"test" or "quality assurance" environments. These environments look similar to the "real" production environment where
+actual users will interact with the software, but few if any real users have access to them. The idea is that software
+developers can deploy new changes to a test environment and see if they work without the risk of potentially breaking
+the software for real users if they encounter unexpected issues.
+
+Test environments are essential to maintaining quality software, and every major software project the Cloud and
+Interactive Computing group at TACC develops makes use of multiple test environments. We will have you create separate
+test and production environments as part of building the final project in this class.
+
+It is also common practice to deploy changes to the test environment often, as soon as code is ready and tests are passing
+on a developer's laptop. We deploy changes to our test environments dozens of times a day while a large enterprise like
+Google may deploy millions of times a day. We will learn more about test environments and automated deployment strategies
+in the Continuous Integration section.
+
+Image Management and Tagging
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+As you have seen, the ``tag`` associated with a Docker image is the string after the ``:`` in the name. For example,
+```ubuntu:18.04`` has a tag of ``18.04`` representing the version of Ubuntu packaged in the image, while
+``jstubbs/hello-flask:dev`` has a tag of ``dev``, in this case indicating that the image was built from the ``dev`` branch
+of the corresponding git repository. Use of tags should be deliberate and is an important detail in a well designed
+software development release cycle.
+
+Once you have created a deployment for a pod with a given image,
+there are two basic approaches to deploying an updated version of the container images to k8s:
+
+  1. Use a new image tag or
+  2. Use the same image tag and instruct k8s to download the image again.
+
+Using new tags is useful and important whenever you may want to be able to recover or revert back to the previous image,
+but on the other hand, it can be tedious to update the tag every time there is a minor change to a software image.
+
+Therefore, we suggest the following guidelines for image tagging:
+
+  1. During development when rapidly iterating and making frequent deployments, use a tag such as ``dev`` to indicate the
+     image represents a development version of the software (and is not suitable for production) and simply overwrite the
+     image tag with new changes. Instruct k8s to always try to download a new version of this tag whenever it creates a
+     pod for the given deployment (see next section).
+
+  2. Once the primary development has completed and the code is ready for end-to-end testing and evaluation, begin to use
+     new tags for each change.  These are sometimes called "release candidates" and therefore, a tagging scheme such as
+     ``rc1``, ``rc2``, ``rc3``, etc., can be used for tagging each release candidate.
+
+  3. Once testing has completed and the software is ready to be deployed to production, tag the image with the version of
+     the software. There are a number of different schemes for versioning software, such as Semantic Versioning (https://semver.org/),
+     which will discuss later in the semester, time permitting.
+
 ImagePullPolicy
----------------
+^^^^^^^^^^^^^^^
 
 When defining a deployment, we can specify an ``ImagePullPolicy`` which instructs k8s about when and how to download
-the image associated with the pod definition. For example, we can add ``imagePullPolicy: Always`` to our hello-deployment
-as follows:
+the image associated with the pod definition. For our test environments, we will instruct k8s to always try and
+download a new version of the image whenever it creates a new pod. We do this by specifying ``imagePullPolicy: Always``
+in our deployment.
+
+For example, we can add ``imagePullPolicy: Always`` to our hello-deployment as follows:
 
 .. code-block:: yaml
 
@@ -248,9 +306,18 @@ as follows:
               command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
 
 and now k8s will always try to download the latest version of ``ubuntu:18.04`` from Docker Hub every time it creates
-a new pod for this deployment. Using ``imagePullPolicy: Always`` is nice during active development because you ensure
-k8s is always deploying the latest version of your code. Other possible values include ``IfNotPresent`` which instruct
-k8s to only pull the image if it doesn't already exist on the worker node.
+a new pod for this deployment. As discussed above, using ``imagePullPolicy: Always`` is nice during active development
+because you ensure k8s is always deploying the latest version of your code. Other possible values include
+``IfNotPresent`` (the current default) which instructs k8s to only pull the image if it doesn't already exist on the
+worker node. This is the proper setting for a production deployment in most cases.
+
+
+Deleting Pods to Update the Deployment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note that if we have an update to our ``:dev`` image and we have set ``imagePullPolicy: Always`` on our deployment, all
+we have to do is delete the existing pods in the deployment to get the updated version deployed: as soon as we delete the
+pods, k8s will determine that an insufficient number of pods are running and try to start new ones. The ``imagePullPolicy``
+instructs k8s to first try and download a newer version of the image.
 
 
 Mounts, Volumes and Persistent Volume Claims
@@ -396,6 +463,10 @@ This is the power of the declarative aspect of k8s. When we created the hello-pv
 keep one pod with the properties specified running at all times, if possible, and k8s continues to try and implement our
 wishes until we instruct it to do otherwise.
 
+.. note::
+  You cannot scale a pod with a per
+
+
 Exec Commands in a Running Pod
 ------------------------------
 
@@ -516,7 +587,9 @@ following:
     Hello, Kubernetes!
     Hello, Kubernetes!
 
-
+.. warning::
+  Deleting a persistent volume claim deletes all data contained in all volumes filled by the PVC permanently! This cannot
+  be undone and the data cannot be recovered!
 
 
 Additional Resources
