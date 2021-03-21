@@ -306,3 +306,85 @@ course, keep in mind that the virtual networking that k8s uses does come at a sm
 including long-running web APIs and databases, this cost is negligible and isn't a concern. But for high-performance
 applications, and in particular, applications whose performance is bounded by the performance of the underlying network,
 the overhead can be significant.
+
+
+HomeWork 5 -- Deploying Our Flask API to k8s
+--------------------------------------------
+
+In this section we will use class time to deploy our Flask API to k8s. This will be a guided, hands-on lab,
+and it will also be submitted for a grade as HomeWork 5. Feel free to ask questions as you work through the lab. Any
+thing left
+
+Our goal today is to create a "test" environment for our Flask API application. We will be using names and labels
+accordingly. Later in the semester, you will create a "production environment for your Flask API application as well.
+You can use this guide to do that.
+
+In each step you will create a k8s object described in a separate yml file. Name the files ``<username>-<env>-<app>-<kind>.yml``,
+Use "test" for ``<env>`` since we are creating the test environment. For example, my Redis deployment would
+``jstubbs-test-redis-deployment.yml`` while my redis service would be called ``jstubbs-test-redis-service.yml``.
+
+Step 1. We will start by focusing on our Redis container. Our Flask API depends on Redis so it makes sense to start there.
+Since Redis writes our application data to disk, we will need a way to save the data independent of the Redis pods.
+Create a persistent volume claim for your Redis data. Use the following information when creating your PVC:
+
+  * The name of your PVC should include your TACC username and the word "test", to indicate it is in the test environment.
+  * We'll make use of ``labels`` to add additional metadata to our k8s objects that will help us search and filter them. Let's
+    add a ``username`` label and an ``env`` label. The value for ``username`` should be your tacc username and the value
+    for ``env`` should be ``test``, to indicate that this is the test environment.
+  * The ``accessModes`` should include a single entry, ``readWriteOnce``.
+  * The ``storageClassName`` should be ``rdb``.
+  * Be sure to request 1 GB (``1Gi``) of storage.
+
+
+Step 2. Create a deployment for the Redis database. Be sure to include the following:
+
+  * The name of your redis deployment should include your TACC username and the word "test", to indicate it is in the test environment.
+  * Use the same ``username`` and ``env`` labels for both the deployment and the pod template.
+  * Be sure to set ``replicas: 1`` as Redis is a stateful application.
+  * For the image, use ``redis:5.0.0``; you do not need to set a command.
+  * Add the ``username`` and ``env`` lables to the pod as well. Also add an ``app`` label with value ``<username>-test-redis``.
+    This will be important in the next step.
+  * Be sure to create a ``volumeMount`` and associate it with a ``volume`` that is filled by the PVC you created in Step 1. For
+    the mount path, use ``/data``, as this is where Redis writes its data.
+
+
+Step 3. Create a service for your Redis database. This will give you a persistent IP address to use to talk to Redis,
+regardless of the IPs that may be assigned to individual Redis pods. Be sure to include the following:
+
+  * The name of your redis service should include your TACC username and the word "test", to indicate it is in the test environment.
+  * Use the same ``username`` and ``env`` labels for both the deployment and the pod template.
+  * The ``type`` of service should be ``ClusterIP``.
+  * Define a ``selector`` that will select your Redis pods and only your redis pods. What label should you use? Hint: the
+    ``env`` and ``username`` labels won't be unique enough.
+  * Make sure ``port`` and ``targetPort`` match the Redis port.
+
+Once you are done with Steps 1 though 3, check your work:
+
+  * Look up the service IP address for your test redis service.
+  * Exec into a Python debug container.
+  * Install the redis python library.
+  * Launch the python shell and import redis
+  * Create a Python redis client object using the IP and port of the service, something like:
+    ``rd = redis.StrictRedis(host='10.101.101.139', port=6379, db=0)``
+  * Create a key and make sure you can get the key.
+  * In another shell on isp02, delete the redis pod. Check that k8s creates a new redis pod.
+  * Back in your python shell, check that you can still get the key using the same IP. This will show that your service is
+    working and that your Redis database is persisting data to the PVC (i.e., the data are surviving pod restarts).
+
+Step 4. Create a deployment for your flask API. If it helps, you can use your Redis deployment as a starting point. Be sure to:
+
+  * The name of your flask service should include your TACC username and the word "test", to indicate it is in the test environment.
+  * Use the same ``username`` and ``env`` labels for both the deployment and the pod template.
+  * start 2 replicas of your flask API pod.
+  * Be sure to expose port 5000.
+
+Step 5. Create a service for your flask API. This will give you a persistent IP address to use to talk to your flask API,
+regardless of the IPs that may be assigned to individual flask API pods. Be sure to include the following:
+
+  * The name of your redis service should include your TACC username and the word "test", to indicate it is in the test environment.
+  * Use the same ``username`` and ``env`` labels for both the deployment and the pod template.
+  * The ``type`` of service should be ``ClusterIP``.
+  * Define a ``selector`` that will select your flask API pods and only your flask API pods.
+  * Make sure ``port`` and ``targetPort`` match the flask port.
+
+
