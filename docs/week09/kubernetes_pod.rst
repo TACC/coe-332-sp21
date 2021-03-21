@@ -139,6 +139,13 @@ Let's break this down. The top four attributes are common to all k8s resource de
     on the ``kind`` of resource you are creating. We go into more details on this in the next section.
 
 
+.. warning::
+
+  Only one Kubernetes object of a specific ``kind`` can have a given ``name`` at a time. If you define a second pod
+  with the same name you will overwrite the first pod. This is true of all the different types of k8s objects we will
+  be creating.
+
+
 The Pod Spec
 ~~~~~~~~~~~~
 
@@ -383,7 +390,7 @@ Filtering By Labels With Selectors
 Lables are useful because we can use ``selectors`` to filter our results for a given label name and value. To specify
 a lable name and value, use the following syntax: ``--selector "<label_name>=<label_value>".
 
-For instance, we can search for pods with the version 1.0 label like se:
+For instance, we can search for pods with the version 1.0 label like so:
 
 .. code-block:: bash
 
@@ -391,7 +398,7 @@ For instance, we can search for pods with the version 1.0 label like se:
     NAME          READY   STATUS    RESTARTS   AGE
     hello-label   1/1     Running   0          4m58s
 
-We can also just use the label name to filter with the syntac ``--selector "<label_name>"``. This will find any pods with
+We can also just use the label name to filter with the syntax ``--selector "<label_name>"``. This will find any pods with
 the label ``<label_name>``, regardless of the value.
 
 
