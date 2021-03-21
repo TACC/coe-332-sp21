@@ -24,14 +24,23 @@ Users communicate with k8s by making requests to its API. The following steps ou
     :align: center
 
 
+.. note::
+
+  It is important to note that most of the time, the k8s API as well as the worker nodes are running on separate machines
+  from the machine we use to interact with k8s (i.e., make API requests to it). The machine we use to interact with k8s
+  only needs to have the k8s client tools installed, and in fact, as the k9s API is available over HTTP, we don't strictly
+  speaking require the tools -- we could use curl or some other http client -- but the tools make interacting much easier.
+
+
 Connecting to the TACC Kubernetes Instance
 ------------------------------------------
-In this class, we will use TACC's FreeTail Kubernetes cluster for deploying our applications. To connect to it, use SSH
-and your TACC username as follows:
+In this class, we will use TACC's FreeTail Kubernetes cluster for deploying our applications. To simplify the process
+of using FreeTail, we have enabled connectivity to it from the ips02 host. Therefore, any time you want to work with k8s,
+simply SSH to isp02 with your TACC username as you have throughout the semester:
 
 .. code-block::
 
- $ ssh <tacc_username>@freetail.tacc.utexas.edu
+ $ ssh <tacc_username>@isp02.tacc.utexas.edu
 
 You will be prompted for your TACC username and password, just as you are when connecting to isp02.
 
@@ -177,6 +186,12 @@ In practice, we won't be creating many ``Pod`` resources directly -- we'll be cr
 with pods using ``kubectl`` for debugging and other management tasks.
 
 
+.. note::
+
+  The pod we just created is running on the FreeTail k8s cluster, NOT on isp02. You will not be able to find it using
+  commands like docker ps, etc.
+
+
 Working With Pods
 ~~~~~~~~~~~~~~~~~
 
@@ -308,6 +323,77 @@ Finally, we can use ``kubectl logs <pod_name>`` command to get the logs associat
 
 Note that the ``logs`` command does not include the resource name ("pods") because it only can be applied to pods. The
 ``logs`` command in k8s is equivalent to that in Docker; it returns the standard output (stdout) of the container.
+
+
+Using Labels
+------------
+
+In the pod above we used the ``metadata`` stanza to give our pod a name. We can use ``labels`` to add additional metadata
+to a pod. A label in k8s is nothing more than a ``name: value`` pair that users create to organize objects and add
+meaningful to the user. We can choose any value for ``name`` and ``value`` that we wish but they must be strings. If you
+want to use a number like "10" for a label name or value, be sure to enclose it in quotes (i.e., ``10``).
+
+You can think of these ``name:value``
+pairs as variables and values. So for example, you might a label called ``shape`` with values `circle``, ``triangle``,
+``square``, etc. Multiple pods can have the same ``name:value`` label.
+
+Let's use the pod definition above to create a new pod with a label.
+
+Create a file called ``pod-label.yml``, open it up in an editor and paste the following code in:
+
+.. code-block:: yaml
+
+    ---
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: hello-label
+      labels:
+        version: 1.0
+    spec:
+      containers:
+        - name: hello
+          image: ubuntu:18.04
+          command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+
+Let's create this pod using ``kubectl apply``:
+
+.. code-block:: bash
+
+  $ kubectl apply -f pod-label.yml
+  pod/hello-label created
+
+Now when we list our pods, we should see it
+
+.. code-block::
+
+  $ kubectl get pods
+    NAME                             READY   STATUS    RESTARTS   AGE
+    ds-staging-6df657fbd-tbht5       1/1     Running   0          34d
+    elasticsearch-748f666f4f-svf2h   1/1     Running   0          76d
+    hello                            1/1     Running   0          4m
+    hello-label                      1/1     Running   0          4s
+    kibana-f5b79569f-r4pl6           1/1     Running   0          78d
+    sidecartest-5454b7d49b-q8fvw     3/3     Running   472        78d
+
+
+Filtering By Labels With Selectors
+----------------------------------
+
+Lables are useful because we can use ``selectors`` to filter our results for a given label name and value. To specify
+a lable name and value, use the following syntax: ``--selector "<label_name>=<label_value>".
+
+For instance, we can search for pods with the version 1.0 label like se:
+
+.. code-block:: bash
+
+  $ kubectl get pods  --selector "version=1.0"
+    NAME          READY   STATUS    RESTARTS   AGE
+    hello-label   1/1     Running   0          4m58s
+
+We can also just use the label name to filter with the syntac ``--selector "<label_name>"``. This will find any pods with
+the label ``<label_name>``, regardless of the value.
+
 
 
 Additional Resources
