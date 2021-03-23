@@ -55,9 +55,9 @@ First, let's create our redis-docker and a config directory under that.
    [isp02]$ mkdir redis-docker/config
 
 
-Next, you'll need a redis config file, luckily we have one for you on.
+Next, you'll need a redis config file, luckily we have one for you.
 
-:doc:`./redis.conf`
+`redis.conf <https://github.com/TACC/coe-332-sp21/blob/main/docs/week09/redis.conf>`_
 
 Copy this file into your redis-docker/config directory
 
