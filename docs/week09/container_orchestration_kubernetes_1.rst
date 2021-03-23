@@ -17,6 +17,7 @@ At the end of the next two weeks you will:
 
 .. toctree::
    :maxdepth: 1
-
+   
+   docker_compose_services
    orchestration_overview
    kubernetes_pod

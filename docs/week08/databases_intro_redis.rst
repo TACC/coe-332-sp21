@@ -175,7 +175,7 @@ Note:
 Note that b'my_value' was returned; in particular, Redis returned binary data (i.e., type bytes).
 the string was encoded for us (in this case, using Unicode). We could have been explicit and set the encoding ourselves.
 
-################
+
 Quick Exercise 1
 ################
 
@@ -231,19 +231,19 @@ Hashes provide another way of storing dictionary-like data in Redis.
    Out[4]: [b'Charlie Dey', b'charlie@tacc.utexas.edu']
 
 
-################
+
 Quick Exercise 2
 ################
 
 Modify your animal producer - your app that creates your animals - to write out 5 animals to the redis database, use a random number as the key and a hash as your value
 
-################
+
 Quick Exercise 3
 ################
 
 Create another animal consumer  - your app that reads in the animals - to read in 5 random animals from the datbase using a random key
 
-################
+
 Quick Exercise 4
 ################
 
@@ -276,18 +276,36 @@ Start the redis server in a container:
 
 Note: the above command will start the Redis container in the foreground which can be helpful for seeing logs, etc. However, you will have the need to start it in the background (detached or daemon mode)
 
-################
+
 Quick Exercise 5
 ################
 
 Revisit Exercises 2, 3, and 4. Modify them to hit your Redis container instead
 
-################
+
 Quick Exercise 6
 ################
 
 Kill your Redis container and restart it. Is your data still there?
 
 
+Quick Exercise 7
+################
+
 Have a fun and safe Spring Break... see you all in a couple weeks.
+
+
+Quick Exercise 8
+################
+
+Alright, so when we took down our Redis container, and then brought it back... we lost our data?
+
+What can we do about this?
+
+Add a Volume to your Docker run.
+
+First start up your Redis container
+.. code-block:: console
+   $ docker run -d -p <your port>:6379 -v <data-dir>:/data --name redis dockerfile/redis
+
 
