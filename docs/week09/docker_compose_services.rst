@@ -23,21 +23,23 @@ Then, with a single command, you create and start all the services from your con
 Why Docker-Compose?
 -------------------
 
-Orchestration!
+*  Orchestration!
 
 
-Launch multiple containers with complex configurations at once
+*  Launch multiple containers with complex configurations at once
 
 
-Define the structure of your app, not the commands needed to run it!
+*  Define the structure of your app, not the commands needed to run it!
 
 Using Compose
 -------------
 
 Using Compose is a three-step process:
-Define images with Dockerfiles
-Define the services in a docker-compose.yml as containers with all of your options (image, port mapping, links, etc.)
-Run docker-compose up and Compose starts and runs your entire app.
+
+*  Define images with Dockerfiles
+*  Define the services in a docker-compose.yml as containers with all of your options (image, port mapping, links, etc.)
+*  Run docker-compose up and Compose starts and runs your entire app.
+
 Three step process to use … a bit more to actually build.
 
 Docker Compose revolves around the docker-compose.yml file where all of your services and components of your system are defined
