@@ -35,7 +35,7 @@ Now we're going to use flask to interact with our data
 
 add the following to your JSON producer:
     - a timestamp labeled "created_on"
-    - an unique identifier "called uuid"
+    - an unique identifier "uid"
 
 In your Flask app,
 
