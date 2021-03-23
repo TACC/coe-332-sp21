@@ -86,17 +86,28 @@ Bring it Up
 -----------
 
 Bring up our system
-docker-compose up -d
-Note: -d, puts it in daemon mode
+
+.. code-block:: console
+
+   docker-compose up -d
+
+
+.. note::
+   -d, puts it in daemon mode
+
 Check to see if our systems are up
-docker-compose ps
+
+.. code-block:: console
+
+   docker-compose ps
 
 
 Boom! We have Redis running
 
-but Charlie!
+* but Charlie!
 
-"docker-compose is about defining and running multi-container Docker applications"
+* "docker-compose is about defining and running multi-container Docker applications"
+
 
 Let's Add Another Service!
 --------------------------
