@@ -47,12 +47,13 @@ Docker Compose revolves around the docker-compose.yml file where all of your ser
 Let's start with Redis
 ----------------------
 
-First, let's create our redis-docker and a config directory under that.
+First, let's create our redis-docker and a config and data directory under that.
 
 .. code-block:: console
 
    [isp02]$ mkdir redis-docker
    [isp02]$ mkdir redis-docker/config
+   [isp02]$ mkdie redis-docker/data
 
 
 Next, you'll need a redis config file, luckily we have one for you.
@@ -95,6 +96,7 @@ Bring up our system
 .. note::
    -d, puts it in daemon mode
 
+
 Check to see if our systems are up
 
 .. code-block:: console
@@ -106,7 +108,7 @@ Boom! We have Redis running
 
 * but Charlie!
 
-* "docker-compose is about defining and running multi-container Docker applications"
+* "*docker-compose* is about defining and running multi-container Docker applications"
 
 
 Let's Add Another Service!
@@ -118,7 +120,7 @@ Let's Add Another Service!
     services:
          web:
             build: .
-            container_name: master_web
+            container_name: main_web
             ports:
                - 5001:5000
             volumes:
@@ -129,6 +131,7 @@ Let's Add Another Service!
                - 6080:6379
             volumes:
                - ./config/redis.conf:/redis.conf
+               - ./mydata/:/data
             command: [ "redis-server", "/redis.conf" ]
 
 
@@ -142,4 +145,14 @@ Let's Add Another Service!
 what does my Python Redis connection look like?
 -----------------------------------------------
 
-rd = redis.StrictRedis(host='redis', port=6379, db=7)
+rd = redis.StrictRedis(host='redis', port=6379, db=0)
+
+
+########
+Exercise
+########
+
+Connect your Flask container and your Redis container together user Docker-Compose
+
+.. note::
+   be sure to change your Redis connection in your Flask App.

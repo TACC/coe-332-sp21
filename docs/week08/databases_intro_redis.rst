@@ -288,6 +288,24 @@ Quick Exercise 6
 
 Kill your Redis container and restart it. Is your data still there?
 
+################
+Quick Exercise 7
+################
 
 Have a fun and safe Spring Break... see you all in a couple weeks.
+
+################
+Quick Exercise 8
+################
+
+Alright, so when we took down our Redis container, and then brought it back... we lost our data?
+
+What can we do about this?
+
+Add a Volume to your Docker run.
+
+First start up your Redis container
+.. code-block:: console
+   $ docker run -d -p <your port>:6379 -v <data-dir>:/data --name redis dockerfile/redis
+
 
