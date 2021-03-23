@@ -12,7 +12,7 @@ time.
 At the end of the next two weeks you will:
 
   * Understand container orchestration and the basic Kubernetes architecture.
-  * Understand fundamental Kubernetes abstractions, including: ``pod``, ``deployment``, ``persistent volume``, ``configMap`` and ``service``.
+  * Understand fundamental Kubernetes abstractions, including: ``pod``, ``deployment``, ``persistent volume``, and ``service``.
   * Write a basic script to deploy your flask application to a Kubernetes cluster in your own private namespace.
 
 .. toctree::
