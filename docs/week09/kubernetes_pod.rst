@@ -341,7 +341,7 @@ meaningful to the user. We can choose any value for ``name`` and ``value`` that 
 want to use a number like "10" for a label name or value, be sure to enclose it in quotes (i.e., ``10``).
 
 You can think of these ``name:value``
-pairs as variables and values. So for example, you might a label called ``shape`` with values `circle``, ``triangle``,
+pairs as variables and values. So for example, you might a label called ``shape`` with values ``circle``, ``triangle``,
 ``square``, etc. Multiple pods can have the same ``name:value`` label.
 
 Let's use the pod definition above to create a new pod with a label.
@@ -356,7 +356,7 @@ Create a file called ``pod-label.yml``, open it up in an editor and paste the fo
     metadata:
       name: hello-label
       labels:
-        version: 1.0
+        version: "1.0"
     spec:
       containers:
         - name: hello
@@ -388,7 +388,7 @@ Filtering By Labels With Selectors
 ----------------------------------
 
 Lables are useful because we can use ``selectors`` to filter our results for a given label name and value. To specify
-a lable name and value, use the following syntax: ``--selector "<label_name>=<label_value>".
+a lable name and value, use the following syntax: ``--selector "<label_name>=<label_value>"``.
 
 For instance, we can search for pods with the version 1.0 label like so:
 
