@@ -43,7 +43,7 @@ In your Flask app,
         - query a range of dates
         - selects a particular creature by its unique identifier
         - edits a particular creature by passing the UUID, and updated "stats"
-        - deletes a selection of animals by a date rangees
+        - deletes a selection of animals by a date ranges
         - returns the average number of legs per animal
         - returns a total count of animals
 
