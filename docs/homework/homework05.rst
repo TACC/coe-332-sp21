@@ -1,6 +1,8 @@
 Homework 05
 ===========
 
+**Due Date: Thursday, April 8, by 11:00am CST**
+
 A.
 --
 
