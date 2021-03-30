@@ -308,7 +308,7 @@ applications, and in particular, applications whose performance is bounded by th
 the overhead can be significant.
 
 
-HomeWork 5 -- Deploying Our Flask API to k8s
+HomeWork 6 -- Deploying Our Flask API to k8s
 --------------------------------------------
 
 In this section we will use class time to deploy our Flask API to k8s. This will be a guided, hands-on lab,
