@@ -82,7 +82,7 @@ for more details):
   * ``status.hostIP`` - the node's IP, available since v1.7.0-alpha.1
 
 Thus, for example, the following code snippet included in the ``env`` section would create an environment variable,
-``$POD_IP``, with
+``$POD_IP``, with value equal to the pod's IP address (as assigned by k8s).
 
 .. code-block:: yaml
 
