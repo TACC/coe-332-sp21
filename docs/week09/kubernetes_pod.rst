@@ -387,8 +387,8 @@ Now when we list our pods, we should see it
 Filtering By Labels With Selectors
 ----------------------------------
 
-Lables are useful because we can use ``selectors`` to filter our results for a given label name and value. To specify
-a lable name and value, use the following syntax: ``--selector "<label_name>=<label_value>"``.
+Labels are useful because we can use ``selectors`` to filter our results for a given label name and value. To specify
+a label name and value, use the following syntax: ``--selector "<label_name>=<label_value>"``.
 
 For instance, we can search for pods with the version 1.0 label like so:
 
