@@ -25,7 +25,7 @@ web-accessible interface to their system.
    week06/overview
    week07/overview
    week08/overview
-   week09/container_orchestration_kubernetes_1
+   week09/overview
    week10/container_orchestration_kubernetes_2
    week11/overview
    week12/overview
