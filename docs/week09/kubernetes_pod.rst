@@ -38,7 +38,7 @@ In this class, we will use TACC's FreeTail Kubernetes cluster for deploying our 
 of using FreeTail, we have enabled connectivity to it from the ips02 host. Therefore, any time you want to work with k8s,
 simply SSH to isp02 with your TACC username as you have throughout the semester:
 
-.. code-block::
+.. code-block:: bash
 
  $ ssh <tacc_username>@isp02.tacc.utexas.edu
 
