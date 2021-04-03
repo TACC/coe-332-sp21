@@ -96,6 +96,7 @@ For example, suppose we have:
   * Two agents, agent A and agent B, and a starting balance of $50.
   * Agent A gets an order to deposit $25 at the same time that agent B gets an order to withdraw $10.
 
+
 In this case, the final balance should be $65 (=$50 + $25 - $10).
 
 The system will arrive at this answer as long as steps 1, 2 and 3 for one agent are done before any steps for
