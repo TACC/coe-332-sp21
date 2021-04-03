@@ -1,4 +1,10 @@
-Week 12: Queues
-===============
+Week 12: Asynchronous Programming II
+====================================
 
-Content will be added the week of April 12.
+This week we complete our treatment of asynchronous programming.
+
+.. toctree::
+   :maxdepth: 1
+
+   worker.rst
+

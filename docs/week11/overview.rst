@@ -1,4 +1,15 @@
 Week 11: Asynchronous Programming
 =================================
 
-Content will be added the week of April 5.
+In this week, we will begin our discussion of concurrency and asynchronous programming with the goal of covering the
+material you you will need to add a "long running" jobs functionality to your Flask API project.
+
+
+
+.. toctree::
+   :maxdepth: 1
+
+   concurrency.rst
+   messaging.rst
+
+
