@@ -8,7 +8,7 @@ somewhat related "Publish-Subscribe" pattern (also sometimes referred to as "Pub
 
 
 Task Queue (or Work Queue)
--------------------------
+--------------------------
 
 In a task queue system,
 
