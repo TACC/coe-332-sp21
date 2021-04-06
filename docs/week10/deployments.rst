@@ -597,4 +597,4 @@ Additional Resources
 
  * `Kubernetes Deployments Documentation <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>`_
  * `Persistent Volumes <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>`_
- * `Ceph RDB Storage class in k8s <https://kubernetes.io/docs/concepts/storage/storage-classes/#ceph-rbd>`_
+ * `Ceph RBD Storage class in k8s <https://kubernetes.io/docs/concepts/storage/storage-classes/#ceph-rbd>`_
