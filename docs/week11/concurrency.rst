@@ -100,20 +100,20 @@ For example, suppose we have:
 In this case, the final balance should be $65 (=$50 + $25 - $10).
 
 The system will arrive at this answer as long as steps 1, 2 and 3 for one agent are done before any steps for
-the other agent are started; for ex, A1, B1, C1, A2, B2, C2.
+the other agent are started; for ex, A1, A2, A3, B1, B2, B3.
 
 However, if the steps of the two agents are mixed then the system will
 not arrive at the correct answer.
 
-For example, suppose the steps of the two agents were performed in this order: A1, A2, B1, B2, C1, C2.
+For example, suppose the steps of the two agents were performed in this order: A1, A2, B1, B2, A3, B3.
 What would the final result be? The listing below shows what each agents sees at each step.
 
   * A1. Agent A determines the current balance to be $50.
   * A2. Agent A computes a new balance of $50 + $25 = $75.
   * B1. Agent B determines the current balance to be $50.
   * B2. Agent B computes a new balance of $50 - $10 = $40.
-  * C1. Agent A updates the balance to be $75.
-  * C2. Agent B updates the balance to be $40.
+  * A3. Agent A updates the balance to be $75.
+  * B3. Agent B updates the balance to be $40.
 
 In this case, the system will compute the final balance to be $40! Hopefully this is not your account! :)
 
