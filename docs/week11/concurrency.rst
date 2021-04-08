@@ -357,7 +357,7 @@ Under the hood, the ``hotqueue.Queue`` is just a Redis object, which we can veri
 .. code-block:: python
 
     >>> import redis
-    >>> rd = redis.StrictRedis(host="172.17.0.1", port=6379, db=1)
+    >>> rd = redis.StrictRedis(host="<Redis IP>", port=6379, db=1)
     >>> rd.keys()
     [b'hotqueue:queue']
 
