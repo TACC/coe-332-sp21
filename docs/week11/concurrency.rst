@@ -265,18 +265,18 @@ already installed installed using the following code --
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: py-debug-deployment
+      name: redis-client-debug-deployment
       labels:
-        app: py-app
+        app: redis-client-debug
     spec:
       replicas: 1
       selector:
         matchLabels:
-          app: py-app
+          app: redis-client-debug
       template:
         metadata:
           labels:
-            app: py-app
+            app: redis-client-debug
         spec:
           containers:
             - name: py39
@@ -313,10 +313,14 @@ the Redis service IP if you creates one.
 .. code-block:: python
 
     >>> from hotqueue import HotQueue
-    >>> q = HotQueue("queue", host="<Redis_IP>", port=6379, db=0)
+    >>> q = HotQueue("queue", host="<Redis_IP>", port=6379, db=1)
 
 Note how similar the ``HotQueue()`` instantiation is to the ``StrictRedis`` instantiation. In the example above we named
 the queue ``queue`` (not too creative), but it could have been anything.
+
+.. note::
+
+  In the definition above, we have set ``db=1`` to ensure we don't interfering with the main data of your Flask app.
 
 Now we can add elements to the queue using the `.put()`; just like with in-memory Python queues, we can put any Python
 object into the queue:
@@ -353,11 +357,11 @@ Under the hood, the ``hotqueue.Queue`` is just a Redis object, which we can veri
 .. code-block:: python
 
     >>> import redis
-    >>> rd = redis.StrictRedis(host="172.17.0.1", port=6379, db=0)
+    >>> rd = redis.StrictRedis(host="172.17.0.1", port=6379, db=1)
     >>> rd.keys()
     [b'hotqueue:queue']
 
-Note that the queue is just a single key in the Redis server ``(db=0)``.
+Note that the queue is just a single key in the Redis server ``(db=1)``.
 
 And just like with other Redis data structures, we can connect to our queue from additional Python clients and see
 the same data.
