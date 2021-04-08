@@ -33,7 +33,7 @@ and the second is the ``q.worker`` decorator.
 The Consume Method
 ^^^^^^^^^^^^^^^^^^
 
-With a ``q`` object defined like ``q = HotQueue("some_queue", host="<Redis_IP>", port=6379, db=0)``,
+With a ``q`` object defined like ``q = HotQueue("some_queue", host="<Redis_IP>", port=6379, db=1)``,
 the consume method works as follows:
 
   * The ``q.consume()`` method returns an iterator which can be looped over using a ``for`` loop (much like a list).
@@ -97,7 +97,7 @@ In practice, we will use the ``@q.worker`` in a Python source file like so --
 .. code-block:: python
 
   # A simple example of Python source file, worker.py
-  q = HotQueue("some_queue", host="<Redis_IP>", port=6379, db=0)
+  q = HotQueue("some_queue", host="<Redis_IP>", port=6379, db=1)
 
   @q.worker
   def do_work(item):
@@ -158,7 +158,7 @@ With this in mind, a first approach might be to break up our system into two mod
 
 However, both the API server and the workers will need to interact with the database and the queue:
 
-  * The API will create new jobs in the database, put new jobs onto the queque, and retrieve the status of jobs
+  * The API will create new jobs in the database, put new jobs onto the queue, and retrieve the status of jobs
     (and probably the output products of the job).
   * The worker will pull jobs off the queue, retrieve jobs from the database, and update them.
 
