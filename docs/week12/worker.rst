@@ -19,7 +19,7 @@ Recall the high-level architecture of our Jobs API:
   * Workers will receive messages about new jobs to execute and performing the analysis steps.
   * Workers will oversee the execution of the analysis steps and update the database with the results.
 
-Therefore, our worker program is an example of daemon that will simply run in the background, waiting for new messages
+Therefore, our worker program is an example of a daemon that will simply run in the background, waiting for new messages
 to arrive and executing the corresponding jobs.
 
 We have actually already seen how to turn our Python code into a worker daemon. Let us recall that here:
@@ -28,9 +28,9 @@ We have actually already seen how to turn our Python code into a worker daemon. 
   * The ``worker.py`` will import a queue object from a ``jobs.py`` module
   * The ``worker.py`` file includes a function that can take a message from the queue and start processing a job.
   * The worker will use the queue object's ``worker`` decorator to turn this function into a consumer.
-  * By adding a call to the function at the bottom of ``worker.py``, the worker can br run as a daemon.
+  * By adding a call to the function at the bottom of ``worker.py``, the worker can be run as a daemon.
 
-Here is a skeletonn of the worker.py module --
+Here is a skeleton of the worker.py module --
 
 .. code-block:: python
 
