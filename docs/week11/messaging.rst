@@ -205,15 +205,15 @@ To begin, place them in the appropriate files. Also, determine if they should be
 
 .. code-block:: python
 
-    def generate_jid():
+    def _generate_jid():
         return str(uuid.uuid4())
 
-    def generate_job_key(jid):
+    def _generate_job_key(jid):
         return 'job.{}'.format(jid)
 
     q = HotQueue("queue", host='172.17.0.1', port=6379, db=1)
 
-    def instantiate_job(jid, status, start, end):
+    def _instantiate_job(jid, status, start, end):
         if type(jid) == str:
             return {'id': jid,
                     'status': status,
@@ -234,11 +234,11 @@ To begin, place them in the appropriate files. Also, determine if they should be
             return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
         return json.dumps(jobs.add_job(job['start'], job['end']))
 
-    def save_job(job_key, job_dict):
+    def _save_job(job_key, job_dict):
         """Save a job object in the Redis database."""
         rd.hmset(.......)
 
-    def queue_job(jid):
+    def _queue_job(jid):
         """Add a job to the redis queue."""
         ....
 
@@ -247,10 +247,10 @@ To begin, place them in the appropriate files. Also, determine if they should be
 
     def add_job(start, end, status="submitted"):
         """Add a job to the redis queue."""
-        jid = generate_jid()
-        job_dict = instantiate_job(jid, status, start, end)
-        save_job(......)
-        queue_job(......)
+        jid = _generate_jid()
+        job_dict = _instantiate_job(jid, status, start, end)
+        _save_job(......)
+        _queue_job(......)
         return job_dict
 
     @<...>   # fill in
@@ -271,9 +271,9 @@ To begin, place them in the appropriate files. Also, determine if they should be
 
 **Exercise.** After placing the functions in the correct files, add the necessary ``import`` statements.
 
-**Exercise.** Write code to finish the implementations for ``save_job`` and ``queue_job``.
+**Exercise.** Write code to finish the implementations for ``_save_job`` and ``_queue_job``.
 
-**Exercise.** Fix the calls to ``save_job`` and ``execute_job`` within the ``add_job`` function.
+**Exercise.** Fix the calls to ``_save_job`` and ``execute_job`` within the ``add_job`` function.
 
 **Exercise.** Finish the ``execute_job`` function. This function needs a decorator (which one?)
 and it needs a function body.
