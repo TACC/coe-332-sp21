@@ -151,6 +151,19 @@ The following should be kept in mind when designing the modules of a larger syst
   * Accessing code from external modules is accomplished through the ``import`` statement.
   * Circular imports will cause errors - if module A imports an object from module B, module B cannot import from module A.
 
+**Examples.** The Python standard library is a good source of examples of module design. You can browse the
+standard library for Python 3.9 `here <https://docs.python.org/3/library/>`_.
+
+  * We see the Python standard library has modules focused on a variety of computing tasks; for example, for working
+    with different data types, such as the ``datetime`` module and the ``array`` module.  The descriptions are succinct:
+
+    * *The datetime module supplies classes for manipulating dates and times.*
+    * *This module defines an object type which can compactly represent an array of basic values: characters, integers, floating point numbers*
+
+  * For working with various file formats: e.g., ``csv``, ``configparser``
+  * For working with concurrency: ``threading``, ``multiprocessing``, etc.
+
+
 With this in mind, a first approach might be to break up our system into two modules:
 
   * ``api.py`` - this module contains the flask web server.
@@ -195,6 +208,15 @@ concepts - in practice, more advanced/robust approaches are used.
 
   * We will name private objects starting with a single underscore (``_``) character.
   * If an object does not start with an underscore, it should be considered public.
+
+We can see public and private objects in use within the standard library as well. If we open up the source code for the
+``datetime`` module, which can be found `here <https://github.com/python/cpython/blob/3.9/Lib/datetime.py>`_ we see a mix
+of public and private objects and methods.
+
+  * Private objects are listed first.
+  * Public objects start on `line 473 <https://github.com/python/cpython/blob/3.9/Lib/datetime.py#L473>`_ with
+    the ``timedelta`` class.
+
 
 **Exercise.** Create three files, ``api.py``, ``worker.py`` and ``jobs.py`` in your local repository, and update
 them by working through the following example.
