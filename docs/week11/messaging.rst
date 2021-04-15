@@ -491,7 +491,7 @@ from it, but we do need to import the ``StrictRedis`` and ``HotQueue`` classes. 
     from redis import StrictRedis
 
     q = HotQueue("queue", host='172.17.0.1', port=6379, db=1)
-    rd = redis.StrictRedis(host='172.17.0.1', port=6379, db=0)
+    rd = StrictRedis(host='172.17.0.1', port=6379, db=0)
 
     def _generate_jid():
         return str(uuid.uuid4())
