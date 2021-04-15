@@ -43,6 +43,7 @@ web-accessible interface to their system.
    homework/homework04-midterm.rst
    homework/homework05.rst
    homework/homework06.rst
+   homework/homework07.rst
 
 
 Additional Resources
