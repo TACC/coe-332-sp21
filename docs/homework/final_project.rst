@@ -66,3 +66,12 @@ Github Repository
        * List of endpoints
        * Expected JSON responses
        * Examples of how to use your system from within curl and Python.
+
+
+* Datasets
+
+There are many public datasets available for you to to download into your project. Google
+is your best bet to find datasets which maybe of interest. Some examples of open datasets
+are https://data.austintexas.gov/ or signup for a free community account at https://data.world/ 
+Google also has some public datasets available on the Google Cloud, https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset
+Some "tweaking" may be required to convert the datasets into a JSON dictionary.
