@@ -26,12 +26,11 @@ web-accessible interface to their system.
    week07/overview
    week08/overview
    week09/overview
-   week10/container_orchestration_kubernetes_2
+   week10/overview
    week11/overview
    week12/overview
    week13/overview
-   week14/overview
-   week15/overview
+
 
 .. toctree::
    :maxdepth: 1
