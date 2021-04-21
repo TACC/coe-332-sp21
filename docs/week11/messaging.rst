@@ -210,7 +210,7 @@ concepts - in practice, more advanced/robust approaches are used.
   * If an object does not start with an underscore, it should be considered public.
 
 We can see public and private objects in use within the standard library as well. If we open up the source code for the
-``datetime`` module, which can be found `here <https://github.com/python/cpython/blob/3.9/Lib/datetime.py>`_ we see a mix
+``datetime`` module, which can be found `on GitHub <https://github.com/python/cpython/blob/3.9/Lib/datetime.py>`_ we see a mix
 of public and private objects and methods.
 
   * Private objects are listed first.

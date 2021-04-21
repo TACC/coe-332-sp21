@@ -9,7 +9,5 @@ material you you will need to add a "long running" jobs functionality to your Fl
 .. toctree::
    :maxdepth: 1
 
-   concurrency.rst
-   messaging.rst
-
-
+   concurrency
+   messaging
