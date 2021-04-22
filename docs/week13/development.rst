@@ -101,7 +101,8 @@ simple target might look like:
    ps-me:
            docker ps -a | grep wallen
 
-With this text in a file called ``Makefile``, you simply need to type:
+Put this text in a file called ``Makefile`` in your current directory, and then
+you simply need to type:
 
 .. code-block:: console
 
