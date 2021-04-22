@@ -64,20 +64,17 @@ follows the form:
 
 1. Edit some source code (e.g. add a new Flask route)
 2. Delete any running container with the old source code
-3. Re-build the image with `docker build`
-4. Start up a new container with `docker run`
+3. Re-build the image with ``docker build``
+4. Start up a new container with ``docker run``
 5. Test the new code / functionality
 6. Repeat
 
-This 6-step cycle is great for iterating on one of the three containers at a
-time. If two of the three are up and running, the other can usually be
-independently worked on.
+This 6-step cycle is great for iterating on each of the three containers
+independently, or all at once. However, watch out for potential error sources.
+For example if you take down the Redis container, a worker container that is in
+the middle of watching the queue may also go down and will need to be restarted
+(once a new Redis container is up).
 
-Watch out for gotchas. For example if you take down the Redis container, a worker
-container that is in the middle of watching the queue may also go down and will
-need to be restarted (once a new Redis container is up).
-
-Docker-compose also provides
 
 Makefile
 --------
@@ -89,7 +86,7 @@ Many code projects use Makefiles to help with the compile and install process
 shortcuts to cleaning up running containers, re-building docker images, running
 new containers, and deploying it all with docker-compose.
 
-Targets are listed in a file called `Makefile` in this format:
+Targets are listed in a file called ``Makefile`` in this format:
 
 .. code-block:: text
 
