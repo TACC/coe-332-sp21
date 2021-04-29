@@ -142,7 +142,7 @@ In your own GitHub account, fork this repository:
 https://github.com/wjallen/pssp-api
 
 Create the same GitHub - Docker Hub integration shown above, write a new feature
-as described below, and tag a new release to trigger a build.
+and tag a new release as described below to trigger a build.
 
 Commit to GitHub
 ----------------
@@ -164,3 +164,18 @@ telling git to push the tag we created (0.1.4) to the remote (origin).
 
 Now, check the online GitHub repo to make sure your change / tag is there, and
 check the Docker Hub repo to see if your image is automatically rebuilding.
+
+
+Deploy to Kubernetes
+--------------------
+
+The final step in our example is to update the image tag in our deployment yaml files
+in both test and prod, and apply them all. Apply to test (staging) first as one
+final check that things are working as expected. Then, deploy to prod. Because
+the old containers are Running right up until the moment the new containers are
+deployed, there is virtually no disruption in service.
+
+.. note::
+
+    Some CI / CD services can even handle the deployment to Kubernetes following
+    Docker image builds and passing tests.
