@@ -30,6 +30,7 @@ web-accessible interface to their system.
    week11/overview
    week12/overview
    week13/overview
+   week14/overview
 
 
 .. toctree::
