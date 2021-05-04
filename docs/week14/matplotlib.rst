@@ -50,28 +50,47 @@ Let's make the plot easier to read
 other color combinations:
 
 Colors:
-Blue – ‘b’
-Green – ‘g’
-Red – ‘r’
-Cyan – ‘c’
-Magenta – ‘m’
-Yellow – ‘y’
-Black – ‘k’ (‘b’ is taken by blue so the last letter is used)
-White  – ‘w’
+
+* Blue – ‘b’
+
+* Green – ‘g’
+
+* Red – ‘r’
+
+* Cyan – ‘c’
+
+* Magenta – ‘m’
+
+* Yellow – ‘y’
+
+* Black – ‘k’ (‘b’ is taken by blue so the last letter is used)
+
+* White  – ‘w’
+
 
 Lines and markers:
-Lines:
-	Solid Line – '-'
-	Dashed – '–'
-	Dotted – '.'
-	Dash-dotted – '-:'
 
-Often Used Markers:
-	Point – '.'
-	Pixel – ','
-	Circle – 'o'
-	Square – 's'
-	Triangle – '^'
+* Lines:
+
+	* Solid Line – '-'
+
+	* Dashed – '–'
+
+	* Dotted – '.'
+
+	* Dash-dotted – '-:'
+
+* Often Used Markers:
+
+	* Point – '.'
+
+	* Pixel – ','
+
+	* Circle – 'o'
+
+	* Square – 's'
+
+	* Triangle – '^'
 
 
 
