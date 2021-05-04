@@ -7,8 +7,8 @@ What is Matplotlib
 
 
 It’s a graphing library for Python. It has a nice collection of tools that you can use to
- create anything from simple graphs, to scatter plots, to 3D graphs. It is used heavily in 
- the scientific Python community for data visualisation.
+create anything from simple graphs, to scatter plots, to 3D graphs. It is used heavily in 
+the scientific Python community for data visualisation.
 
 
  Let's jump in
