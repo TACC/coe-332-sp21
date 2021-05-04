@@ -33,7 +33,7 @@ we can keep plotting! Let's plot 2 graphs on the same axis
 .. code-block:: python3
     :linenos:
 
-    plt.plot(x, np.sin(x), x(2*x))
+    plt.plot(x, np.sin(x), np.sin(2*x))
     plt.show()
     plt.savefig('my_sinwavex2.png')
 
