@@ -176,7 +176,7 @@ Adding Labels and Legends
 Redis and plots
 ---------------
 
-you can "save" your plots to Redis, however the maximum size for a key/value is 512 my_labels_legends
+you can "save" your plots to Redis, however the maximum size for a key/value is 512 mb
 and the sum of all your data (including files) must fit into main memory on the Redis server.
 
 .. code-block:: python3
