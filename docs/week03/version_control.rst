@@ -182,7 +182,7 @@ Git to tell us the status of our project:
 .. code-block:: bash
 
    [isp02]$ git status
-   # On branch master
+   # On branch main
    #
    # Initial commit
    #
@@ -221,7 +221,7 @@ isn't keeping track of. We can instruct Git to start tracking a file using
 
    [isp02]$ git add json_ex.py
    [isp02]$ git status
-   # On branch master
+   # On branch main
    #
    # Initial commit
    #
@@ -248,7 +248,7 @@ more command:
 .. code-block:: bash
 
    [isp02]$ git commit -m "started tracking json example script"
-   [master (root-commit) 344ec9f] started tracking json example script
+   [main (root-commit) 344ec9f] started tracking json example script
     1 file changed, 29 insertions(+)
     create mode 100644 json_ex.py
 
@@ -272,7 +272,7 @@ If we run ``git status`` now:
 .. code-block:: bash
 
    [isp02]$ git status
-   # On branch master
+   # On branch main
    # Untracked files:
    #   (use "git add <file>..." to include in what will be committed)
    #
@@ -352,7 +352,7 @@ has been modified:
 .. code-block:: bash
 
    [isp02]$ git status
-   # On branch master
+   # On branch main
    # Changes not staged for commit:
    #   (use "git add <file>..." to update what will be committed)
    #   (use "git checkout -- <file>..." to discard changes in working directory)
@@ -406,10 +406,10 @@ After reviewing our change, it's time to commit it:
 
    [isp02]$ git add json_ex.py
    [isp02]$ git commit -m "added a descriptive comment"
-   [master 8d5f563] added a descriptive comment
+   [main 8d5f563] added a descriptive comment
     1 file changed, 1 insertion(+), 1 deletion(-)
    [isp02]$ git status
-   # On branch master
+   # On branch main
    nothing to commit, working directory clean
 
 Git insists that we add files to the set we want to commit before actually
@@ -471,7 +471,7 @@ haven't been staged:
 .. code-block:: bash
 
    [isp02]$ git status
-   # On branch master
+   # On branch main
    # Changes not staged for commit:
    #   (use "git add <file>..." to update what will be committed)
    #   (use "git checkout -- <file>..." to discard changes in working directory)
@@ -678,9 +678,9 @@ BRANCH
 ~~~~~~
 
 A branch is a parallel version of a repository. It is contained within the
-repository, but does not affect the primary or master branch allowing you to
+repository, but does not affect the primary or main branch allowing you to
 work freely without disrupting the "live" version. When you've made the changes
-you want to make, you can merge your branch back into the master branch to
+you want to make, you can merge your branch back into the main branch to
 publish your changes. For more information, see
 `About branches <https://help.github.com/articles/about-branches>`_.
 
