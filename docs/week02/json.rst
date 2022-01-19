@@ -143,7 +143,7 @@ and ``print()``.
 
 .. tip::
 
-   Consider doing this in the Python interpreter's interactive mode instead if
+   Consider doing this in the Python interpreter's interactive mode instead of
    in a script.
 
 Working with JSON
