@@ -88,7 +88,7 @@ system, user-added files, metadata.
 
 **IMAGE**
 
-A Docker images is a read-only file used to produce Docker containers. It is
+A Docker image is a read-only file used to produce Docker containers. It is
 comprised of layers of other images, and any changes made to an image can only
 be saved and propagated on by adding new layers. The "base image" is the
 bottom-most layer that does not depend on any other layer and typically defines,
