@@ -189,7 +189,7 @@ through the process of listing images that are currently available on the ISP
 server, we will pull a 'hello-world' image from Docker Hub, then we will run the
 'hello-world' image to see what it says.
 
-List images on the ISP server with the ``docker images`` command. This peaks
+List images on the ISP server with the ``docker images`` command. This peeks
 into the Docker daemon, which is shared by all users on this system, to see
 which images are available, when they were created, and how large they are:
 
