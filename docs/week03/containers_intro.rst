@@ -303,7 +303,7 @@ Start an Interactive Shell Inside a Container
 
 Using an interactive shell is a great way to poke around inside a container and
 see what is in there. Imagine you are ssh-ing to a different Linux server, have
-root access, and can see what files, commands, environment, etc., is available.
+root access, and can see what files, commands, environment, etc., are available.
 
 Before starting an interactive shell inside the container, execute the following
 commands on the ISP server (we will see why in a minute):
