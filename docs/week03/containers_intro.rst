@@ -88,7 +88,7 @@ system, user-added files, metadata.
 
 **IMAGE**
 
-A Docker images is a read-only file used to produce Docker containers. It is
+A Docker image is a read-only file used to produce Docker containers. It is
 comprised of layers of other images, and any changes made to an image can only
 be saved and propagated on by adding new layers. The "base image" is the
 bottom-most layer that does not depend on any other layer and typically defines,
@@ -189,7 +189,7 @@ through the process of listing images that are currently available on the ISP
 server, we will pull a 'hello-world' image from Docker Hub, then we will run the
 'hello-world' image to see what it says.
 
-List images on the ISP server with the ``docker images`` command. This peaks
+List images on the ISP server with the ``docker images`` command. This peeks
 into the Docker daemon, which is shared by all users on this system, to see
 which images are available, when they were created, and how large they are:
 
@@ -303,7 +303,7 @@ Start an Interactive Shell Inside a Container
 
 Using an interactive shell is a great way to poke around inside a container and
 see what is in there. Imagine you are ssh-ing to a different Linux server, have
-root access, and can see what files, commands, environment, etc., is available.
+root access, and can see what files, commands, environment, etc., are available.
 
 Before starting an interactive shell inside the container, execute the following
 commands on the ISP server (we will see why in a minute):
